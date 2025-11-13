@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data files (large datasets should not be committed)
+data/raw/*.csv
+data/raw/*.txt
+data/raw/*.json
+data/processed/*.csv
+data/processed/*.parquet
+
+# Keep directory structure but not contents
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Results and plots
+results/*.png
+results/*.jpg
+results/*.pdf
+results/*.html
+
+# Logs
+logs/
+*.log
+
+# API keys and secrets
+.env
+secrets.json
+*.key
+config.py  # Uncomment if config.py contains real API keys
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
