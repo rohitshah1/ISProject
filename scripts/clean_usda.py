@@ -23,15 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 def load_usda(filepath: str) -> pd.DataFrame:
-    """
-    Load USDA NASS crop yield data from CSV file.
-    
-    Args:
-        filepath: Path to raw USDA CSV file
-        
-    Returns:
-        DataFrame with loaded USDA data
-    """
+    """Load USDA crop yield data."""
     logger.info(f"Loading USDA data from {filepath}")
     
     if not Path(filepath).exists():
@@ -49,15 +41,7 @@ def load_usda(filepath: str) -> pd.DataFrame:
 
 
 def normalize_column_names(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Normalize column names to snake_case for consistency.
-    
-    Args:
-        df: Raw USDA DataFrame
-        
-    Returns:
-        DataFrame with normalized column names
-    """
+    """Convert column names to snake_case."""
     logger.info("Normalizing column names to snake_case...")
     
     # Convert to snake_case
@@ -73,21 +57,11 @@ def normalize_column_names(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def clean_usda(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Clean and filter USDA crop yield data.
-    Extracts relevant columns, filters for corn and soybeans, and handles missing values.
-    
-    Args:
-        df: Raw USDA DataFrame
-        
-    Returns:
-        Cleaned DataFrame with corn and soybean yields
-    """
+    """Clean and filter USDA data for Illinois corn and soybeans."""
     logger.info("Cleaning USDA data...")
     initial_rows = len(df)
     
-    # Identify key columns (NASS uses various naming conventions)
-    # Common column names: 'Year', 'County', 'County Code', 'Commodity', 'Value'
+    # Figure out which columns we need - NASS naming is inconsistent
     year_col = next((col for col in df.columns if 'year' in col.lower()), None)
     county_col = next((col for col in df.columns if 'county' in col.lower() and 'code' not in col.lower()), None)
     county_code_col = next((col for col in df.columns if 'county' in col.lower() and ('code' in col.lower() or 'ansi' in col.lower())), None)
@@ -124,12 +98,12 @@ def clean_usda(df: pd.DataFrame) -> pd.DataFrame:
     df = df[cols_to_keep].copy()
     df = df.rename(columns=col_mapping)
     
-    # Filter for Illinois (FIPS code 17) if state_code exists
+    # Keep only Illinois data
     if 'state_code' in df.columns:
         df = df[df['state_code'] == 17]
         logger.info(f"Filtered for Illinois: {len(df):,} rows")
     
-    # Filter for CORN and SOYBEANS
+    # Filter for corn and soybeans only
     if 'commodity' in df.columns:
         df['commodity'] = df['commodity'].str.upper().str.strip()
         df = df[df['commodity'].isin(['CORN', 'SOYBEANS', 'CORN, GRAIN', 'SOYBEANS, ALL'])]
@@ -147,35 +121,32 @@ def clean_usda(df: pd.DataFrame) -> pd.DataFrame:
         df = df.dropna(subset=['year'])
         df['year'] = df['year'].astype(int)
     
-    # Handle yield values
+    # Clean up yield values
     if 'yield' in df.columns:
-        # NASS often includes non-numeric values like "(D)" for suppressed data
+        # NASS uses "(D)" for suppressed data
         df['yield'] = pd.to_numeric(df['yield'], errors='coerce')
         
-        # Remove rows with missing yields
+        # Drop missing yields
         before = len(df)
         df = df.dropna(subset=['yield'])
-        logger.info(f"Removed {before - len(df):,} rows with missing or suppressed yields")
+        logger.info(f"Removed {before - len(df):,} rows with missing yields")
         
-        # Remove unrealistic yield values (outliers/data errors)
-        # Typical corn yields: 50-250 bu/acre, soybeans: 20-80 bu/acre
+        # Remove outliers
         df = df[df['yield'] > 0]
-        df = df[df['yield'] < 500]  # Conservative upper bound
+        df = df[df['yield'] < 500]
     
-    # Normalize county FIPS codes to 5-digit format (state + county)
+    # Create 5-digit FIPS codes (state + county)
     if 'county_code' in df.columns and 'state_code' in df.columns:
-        # Combine state code (17 for IL) with county code
         df['county_fips'] = (df['state_code'].astype(str).str.zfill(2) + 
                             df['county_code'].astype(str).str.zfill(3))
     elif 'county_code' in df.columns:
-        # Assume Illinois (17) if state code not available
         df['county_fips'] = '17' + df['county_code'].astype(str).str.zfill(3)
     
-    # Remove any rows with invalid FIPS codes
+    # Drop invalid FIPS
     if 'county_fips' in df.columns:
         df = df[df['county_fips'].str.len() == 5]
     
-    # Select final columns
+    # Keep only columns we need
     final_cols = ['year', 'county_fips', 'commodity', 'yield']
     if 'county_name' in df.columns:
         final_cols.insert(2, 'county_name')
@@ -191,13 +162,7 @@ def clean_usda(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def save_output(df: pd.DataFrame, output_path: str) -> None:
-    """
-    Save cleaned USDA data to CSV file.
-    
-    Args:
-        df: Cleaned DataFrame
-        output_path: Path where CSV should be saved
-    """
+    """Save cleaned data to CSV."""
     # Create output directory if it doesn't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     
@@ -218,27 +183,25 @@ def save_output(df: pd.DataFrame, output_path: str) -> None:
 
 
 def main():
-    """
-    Main execution function for USDA data cleaning pipeline.
-    """
+    """Run the USDA cleaning pipeline."""
     # Define file paths
     input_file = "/Users/dru/ISProject/data/raw/usda_yields.csv"
     output_file = "/Users/dru/ISProject/data/processed/usda_clean.csv"
     
     try:
-        # Step 1: Load data
+        # Load data
         df = load_usda(input_file)
         
-        # Step 2: Normalize column names
+        # Normalize column names
         df = normalize_column_names(df)
         
-        # Step 3: Clean data
+        # Clean the data
         df_clean = clean_usda(df)
         
-        # Step 4: Save output
+        # Save it
         save_output(df_clean, output_file)
         
-        logger.info("USDA data cleaning pipeline completed successfully!")
+        logger.info("USDA cleaning done!")
         
     except Exception as e:
         logger.error(f"Pipeline failed: {e}")

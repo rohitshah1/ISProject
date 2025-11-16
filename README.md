@@ -118,9 +118,9 @@ pip install -r requirements.txt
 
 ### Data Acquisition
 
-Before running the cleaning scripts, you need to obtain the raw data:
+Before running the cleaning scripts, you need the raw data:
 
-#### Option 1: API Access (Recommended)
+#### Using the APIs
 
 1. **NOAA API:**
    - Request a token: https://www.ncdc.noaa.gov/cdo-web/token
@@ -132,7 +132,7 @@ Before running the cleaning scripts, you need to obtain the raw data:
    - Query for Illinois corn and soybean yields
    - Save as `data/raw/usda_yields.csv`
 
-#### Option 2: Manual Download
+#### Manual download
 
 1. Visit the NOAA CDO web interface and download Illinois data
 2. Visit the USDA Quick Stats interface and download crop yield data
@@ -142,7 +142,7 @@ Before running the cleaning scripts, you need to obtain the raw data:
 
 ## Running the Pipeline
 
-### Complete Workflow (Recommended)
+### Automated workflow
 
 Run the data cleaning pipeline with one command:
 
@@ -157,9 +157,9 @@ This script will:
 3. Clean USDA crop yield data
 4. Generate summary statistics
 
-### Individual Scripts
+### Running scripts individually
 
-You can also run scripts individually:
+You can also run them one at a time:
 
 ```bash
 # Download data (if needed)

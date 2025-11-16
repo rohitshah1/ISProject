@@ -25,14 +25,7 @@ logger = logging.getLogger(__name__)
 
 def load_noaa(filepath: str, chunksize: int = 50000) -> pd.DataFrame:
     """
-    Load NOAA weather data in chunks to handle large files efficiently.
-    
-    Args:
-        filepath: Path to raw NOAA CSV file
-        chunksize: Number of rows to process at once
-        
-    Returns:
-        DataFrame with loaded NOAA data
+    Load NOAA weather data in chunks since the file is huge.
     """
     logger.info(f"Loading NOAA data from {filepath}")
     
@@ -69,13 +62,7 @@ def load_noaa(filepath: str, chunksize: int = 50000) -> pd.DataFrame:
 
 def clean_noaa(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Clean NOAA weather data by handling missing values and converting units.
-    
-    Args:
-        df: Raw NOAA DataFrame
-        
-    Returns:
-        Cleaned DataFrame with standardized temperature and precipitation values
+    Clean the raw NOAA data and convert units.
     """
     logger.info("Cleaning NOAA data...")
     initial_rows = len(df)
@@ -117,14 +104,7 @@ def clean_noaa(df: pd.DataFrame) -> pd.DataFrame:
 
 def aggregate_noaa(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Aggregate daily NOAA data to county-year level.
-    Computes annual means and temperature volatility metrics.
-    
-    Args:
-        df: Cleaned NOAA DataFrame with daily observations
-        
-    Returns:
-        DataFrame aggregated to county-year level with volatility metrics
+    Aggregate daily data to annual county-year level.
     """
     logger.info("Aggregating NOAA data to county-year level...")
     
@@ -171,11 +151,7 @@ def aggregate_noaa(df: pd.DataFrame) -> pd.DataFrame:
 
 def save_output(df: pd.DataFrame, output_path: str) -> None:
     """
-    Save cleaned and aggregated data to CSV file.
-    
-    Args:
-        df: Processed DataFrame
-        output_path: Path where CSV should be saved
+    Save the processed data to CSV.
     """
     # Create output directory if it doesn't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
@@ -193,27 +169,25 @@ def save_output(df: pd.DataFrame, output_path: str) -> None:
 
 
 def main():
-    """
-    Main execution function for NOAA data cleaning pipeline.
-    """
+    """Run the NOAA cleaning pipeline."""
     # Define file paths
     input_file = "/Users/dru/ISProject/data/raw/noaa_full.csv"
     output_file = "/Users/dru/ISProject/data/processed/noaa_clean.csv"
     
     try:
-        # Step 1: Load data
+        # Load the raw data
         df = load_noaa(input_file, chunksize=50000)
         
-        # Step 2: Clean data
+        # Clean it
         df_clean = clean_noaa(df)
         
-        # Step 3: Aggregate to county-year
+        # Aggregate to county-year
         df_agg = aggregate_noaa(df_clean)
         
-        # Step 4: Save output
+        # Save results
         save_output(df_agg, output_file)
         
-        logger.info("NOAA data cleaning pipeline completed successfully!")
+        logger.info("NOAA cleaning done!")
         
     except Exception as e:
         logger.error(f"Pipeline failed: {e}")
