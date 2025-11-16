@@ -38,25 +38,25 @@ Note: NOAA download may take 10-30 minutes depending on the date range.
 
 ## Running the Pipeline
 
-### Option 1: Run Everything at Once
+### Automated workflow
 
 ```bash
 ./workflow/run_all.sh
 ```
 
-This will check for raw data and run the cleaning scripts.
+This checks for raw data and runs the cleaning scripts.
 
-### Option 2: Run Scripts Individually
+### Running manually
 
 ```bash
-# Clean the downloaded data (Weeks 4-5 work)
+# Clean the downloaded data
 python scripts/clean_noaa.py
 python scripts/clean_usda.py
 ```
 
-## Expected Output
+## Output Files
 
-After running the pipeline successfully, you should have these files in `data/processed/`:
+After running the pipeline, you'll have these files in `data/processed/`:
 
 - `noaa_clean.csv` - County-year aggregated weather data
 - `usda_clean.csv` - Cleaned crop yield data

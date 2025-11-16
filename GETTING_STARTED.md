@@ -29,7 +29,7 @@ Or manually edit `config.py` with your keys.
 
 ## Run the Pipeline
 
-### Option 1: Automated (recommended)
+### Automated workflow
 
 ```bash
 ./workflow/run_all.sh
@@ -37,21 +37,21 @@ Or manually edit `config.py` with your keys.
 
 This runs the data acquisition and cleaning scripts.
 
-### Option 2: Step by step
+### Running manually
 
 ```bash
 # Download data (if needed)
 python scripts/get_noaa_data.py
 python scripts/get_usda_data.py
 
-# Clean data (Weeks 4-5)
+# Clean data
 python scripts/clean_noaa.py
 python scripts/clean_usda.py
 ```
 
-## Expected Output
+## Output
 
-After running the pipeline, you will have:
+After running the pipeline, you'll have:
 
 - `data/processed/noaa_clean.csv` - County-year aggregated weather
 - `data/processed/usda_clean.csv` - Cleaned crop yields
