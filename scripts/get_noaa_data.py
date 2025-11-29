@@ -1,13 +1,4 @@
-"""
-get_noaa_data.py
 
-Downloads NOAA Climate Data Online (CDO) weather data for Illinois counties.
-Retrieves daily temperature and precipitation observations for agricultural analysis.
-
-Author: Dev Rishi Udata
-Project: Climate Variability and Agricultural Productivity in Illinois
-Course: IS477
-"""
 
 import requests
 import pandas as pd
@@ -17,7 +8,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import json
 
-# Configure logging
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
@@ -26,37 +17,22 @@ logger = logging.getLogger(__name__)
 
 
 class NOAADataDownloader:
-    """
-    Downloads weather data from NOAA Climate Data Online API.
-    """
+   
     
     def __init__(self, api_token: str):
-        """
-        Initialize NOAA API client.
-        
-        Args:
-            api_token: NOAA CDO API token
-        """
+       
         self.api_token = api_token
         self.base_url = "https://www.ncdc.noaa.gov/cdo-web/api/v2"
         self.headers = {'token': api_token}
         
     def get_stations(self, location_id: str = "FIPS:17") -> pd.DataFrame:
-        """
-        Get list of weather stations for a location.
-        
-        Args:
-            location_id: FIPS code for location (default: Illinois = FIPS:17)
-            
-        Returns:
-            DataFrame with station information
-        """
+       
         logger.info(f"Fetching stations for {location_id}...")
         
         url = f"{self.base_url}/stations"
         params = {
             'locationid': location_id,
-            'datasetid': 'GHCND',  # Global Historical Climatology Network Daily
+            'datasetid': 'GHCND', 
             'limit': 1000
         }
         
@@ -80,18 +56,7 @@ class NOAADataDownloader:
     def get_daily_data(self, start_date: str, end_date: str, 
                        location_id: str = "FIPS:17",
                        datatypes: list = None) -> pd.DataFrame:
-        """
-        Download daily weather data for a date range.
         
-        Args:
-            start_date: Start date (YYYY-MM-DD)
-            end_date: End date (YYYY-MM-DD)
-            location_id: FIPS code for location
-            datatypes: List of data types to retrieve
-            
-        Returns:
-            DataFrame with daily weather observations
-        """
         if datatypes is None:
             datatypes = ['TMAX', 'TMIN', 'TAVG', 'PRCP']
         
@@ -100,12 +65,11 @@ class NOAADataDownloader:
         
         all_data = []
         
-        # NOAA API limits to 1000 records per request and 1 year max
-        # Break into smaller chunks
+        
         start = datetime.strptime(start_date, '%Y-%m-%d')
         end = datetime.strptime(end_date, '%Y-%m-%d')
         
-        # Process in 6-month chunks to avoid hitting limits
+       
         current = start
         chunk_size = timedelta(days=180)
         
@@ -181,24 +145,17 @@ class NOAADataDownloader:
             return pd.DataFrame()
     
     def process_and_save(self, df: pd.DataFrame, output_path: str) -> None:
-        """
-        Process downloaded data and save to CSV.
-        
-        Args:
-            df: Raw data from API
-            output_path: Path to save CSV file
-        """
+       
         if df.empty:
             logger.error("No data to process")
             return
         
         logger.info("Processing downloaded data...")
         
-        # Extract relevant columns
+       
         processed = df.copy()
         
-        # Parse station information to get county FIPS if available
-        # Note: May need to map stations to counties separately
+       
         if 'station' in processed.columns:
             processed['station'] = processed['station']
         
@@ -212,7 +169,7 @@ class NOAADataDownloader:
         
         processed = processed.rename(columns=column_mapping)
         
-        # Pivot data so each weather variable is a column
+       
         if 'datatype' in processed.columns:
             processed_pivot = processed.pivot_table(
                 index=['date', 'station'],
@@ -221,40 +178,36 @@ class NOAADataDownloader:
                 aggfunc='first'
             ).reset_index()
             
-            # Flatten column names
+           
             processed_pivot.columns.name = None
             
-            # Add placeholder for county_fips (will need to be mapped)
-            # For now, extract from station metadata if available
+           
             processed_pivot['county_fips'] = None
             
             processed = processed_pivot
         
-        # Create output directory if needed
+       
         Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         
-        # Save to CSV
+        
         processed.to_csv(output_path, index=False)
         logger.info(f"Data saved to {output_path}")
         logger.info(f"Shape: {processed.shape[0]:,} rows × {processed.shape[1]} columns")
         
-        # Show sample
+       
         logger.info("\nFirst few rows:")
         logger.info(processed.head())
 
 
 def main():
-    """
-    Main execution function for NOAA data acquisition.
-    """
-    # Import configuration
+   
     import sys
     sys.path.append('/Users/dru/ISProject')
     import config
     
     API_TOKEN = config.NOAA_API_TOKEN
     
-    # Check if API token is set
+   
     if API_TOKEN == "YOUR_NOAA_TOKEN_HERE":
         logger.error("Please set your NOAA API token in config.py or as environment variable")
         logger.error("Get a token at: https://www.ncdc.noaa.gov/cdo-web/token")
@@ -262,30 +215,30 @@ def main():
         logger.error("  export NOAA_API_TOKEN='your_token_here'")
         return
     
-    # Date range for download
+    
     START_DATE = f"{config.DATA_START_YEAR}-01-01"
     END_DATE = f"{config.DATA_END_YEAR}-12-31"
     
-    # Output file
+   
     OUTPUT_FILE = f"{config.RAW_DATA_DIR}/noaa_full.csv"
     
     try:
-        # Initialize downloader
+       
         logger.info("="*60)
         logger.info("NOAA Climate Data Download")
         logger.info("="*60)
         
         downloader = NOAADataDownloader(API_TOKEN)
         
-        # Optional: Get station list first
+        
         logger.info("\nStep 1: Fetching station information...")
         stations = downloader.get_stations(location_id="FIPS:17")
         if not stations.empty:
             logger.info(f"Found {len(stations)} stations in Illinois")
-            # Save station list for reference
+            
             stations.to_csv(OUTPUT_FILE.replace('noaa_full.csv', 'noaa_stations.csv'), index=False)
         
-        # Download daily data
+       
         logger.info("\nStep 2: Downloading daily weather data...")
         logger.info("This may take 10-30 minutes depending on date range...")
         
@@ -296,7 +249,7 @@ def main():
             datatypes=['TMAX', 'TMIN', 'TAVG', 'PRCP']
         )
         
-        # Process and save
+      
         if not data.empty:
             logger.info("\nStep 3: Processing and saving data...")
             downloader.process_and_save(data, OUTPUT_FILE)
