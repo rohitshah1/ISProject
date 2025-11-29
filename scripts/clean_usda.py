@@ -1,20 +1,11 @@
-"""
-clean_usda.py
 
-Cleans and standardizes USDA NASS QuickStats crop yield data for Illinois.
-Filters for corn and soybeans, normalizes county codes, and prepares data for integration.
-
-Author: Rohit Shah
-Project: Climate Variability and Agricultural Productivity in Illinois
-Course: IS477
-"""
 
 import pandas as pd
 import numpy as np
 import logging
 from pathlib import Path
 
-# Configure logging
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
@@ -23,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def load_usda(filepath: str) -> pd.DataFrame:
-    """Load USDA crop yield data."""
+   
     logger.info(f"Loading USDA data from {filepath}")
     
     if not Path(filepath).exists():
@@ -41,10 +32,10 @@ def load_usda(filepath: str) -> pd.DataFrame:
 
 
 def normalize_column_names(df: pd.DataFrame) -> pd.DataFrame:
-    """Convert column names to snake_case."""
+  
     logger.info("Normalizing column names to snake_case...")
     
-    # Convert to snake_case
+   
     df.columns = (df.columns
                   .str.lower()
                   .str.replace(' ', '_')
@@ -57,11 +48,11 @@ def normalize_column_names(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def clean_usda(df: pd.DataFrame) -> pd.DataFrame:
-    """Clean and filter USDA data for Illinois corn and soybeans."""
+    
     logger.info("Cleaning USDA data...")
     initial_rows = len(df)
     
-    # Figure out which columns we need - NASS naming is inconsistent
+    
     year_col = next((col for col in df.columns if 'year' in col.lower()), None)
     county_col = next((col for col in df.columns if 'county' in col.lower() and 'code' not in col.lower()), None)
     county_code_col = next((col for col in df.columns if 'county' in col.lower() and ('code' in col.lower() or 'ansi' in col.lower())), None)
@@ -72,7 +63,7 @@ def clean_usda(df: pd.DataFrame) -> pd.DataFrame:
     logger.info(f"Identified columns - Year: {year_col}, County: {county_col}, "
                 f"County Code: {county_code_col}, Commodity: {commodity_col}, Value: {value_col}")
     
-    # Select relevant columns
+    
     cols_to_keep = []
     col_mapping = {}
     
@@ -98,55 +89,55 @@ def clean_usda(df: pd.DataFrame) -> pd.DataFrame:
     df = df[cols_to_keep].copy()
     df = df.rename(columns=col_mapping)
     
-    # Keep only Illinois data
+    
     if 'state_code' in df.columns:
         df = df[df['state_code'] == 17]
         logger.info(f"Filtered for Illinois: {len(df):,} rows")
     
-    # Filter for corn and soybeans only
+   
     if 'commodity' in df.columns:
         df['commodity'] = df['commodity'].str.upper().str.strip()
         df = df[df['commodity'].isin(['CORN', 'SOYBEANS', 'CORN, GRAIN', 'SOYBEANS, ALL'])]
         logger.info(f"Filtered for corn and soybeans: {len(df):,} rows")
         
-        # Standardize commodity names
+        
         df['commodity'] = df['commodity'].replace({
             'CORN, GRAIN': 'CORN',
             'SOYBEANS, ALL': 'SOYBEANS'
         })
     
-    # Convert year to integer
+   
     if 'year' in df.columns:
         df['year'] = pd.to_numeric(df['year'], errors='coerce')
         df = df.dropna(subset=['year'])
         df['year'] = df['year'].astype(int)
     
-    # Clean up yield values
+   
     if 'yield' in df.columns:
-        # NASS uses "(D)" for suppressed data
+       
         df['yield'] = pd.to_numeric(df['yield'], errors='coerce')
         
-        # Drop missing yields
+       
         before = len(df)
         df = df.dropna(subset=['yield'])
         logger.info(f"Removed {before - len(df):,} rows with missing yields")
         
-        # Remove outliers
+      
         df = df[df['yield'] > 0]
         df = df[df['yield'] < 500]
     
-    # Create 5-digit FIPS codes (state + county)
+ 
     if 'county_code' in df.columns and 'state_code' in df.columns:
         df['county_fips'] = (df['state_code'].astype(str).str.zfill(2) + 
                             df['county_code'].astype(str).str.zfill(3))
     elif 'county_code' in df.columns:
         df['county_fips'] = '17' + df['county_code'].astype(str).str.zfill(3)
     
-    # Drop invalid FIPS
+  
     if 'county_fips' in df.columns:
         df = df[df['county_fips'].str.len() == 5]
     
-    # Keep only columns we need
+    
     final_cols = ['year', 'county_fips', 'commodity', 'yield']
     if 'county_name' in df.columns:
         final_cols.insert(2, 'county_name')
@@ -163,15 +154,15 @@ def clean_usda(df: pd.DataFrame) -> pd.DataFrame:
 
 def save_output(df: pd.DataFrame, output_path: str) -> None:
     """Save cleaned data to CSV."""
-    # Create output directory if it doesn't exist
+   
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     
-    # Save to CSV
+    
     df.to_csv(output_path, index=False)
     logger.info(f"Data saved to {output_path}")
     logger.info(f"Output shape: {df.shape[0]:,} rows × {df.shape[1]} columns")
     
-    # Log summary statistics by commodity
+   
     logger.info("\nSummary Statistics by Commodity:")
     for commodity in df['commodity'].unique():
         subset = df[df['commodity'] == commodity]
@@ -183,22 +174,21 @@ def save_output(df: pd.DataFrame, output_path: str) -> None:
 
 
 def main():
-    """Run the USDA cleaning pipeline."""
-    # Define file paths
+    
     input_file = "/Users/dru/ISProject/data/raw/usda_yields.csv"
     output_file = "/Users/dru/ISProject/data/processed/usda_clean.csv"
     
     try:
-        # Load data
+       
         df = load_usda(input_file)
         
-        # Normalize column names
+       
         df = normalize_column_names(df)
         
-        # Clean the data
+ 
         df_clean = clean_usda(df)
         
-        # Save it
+     
         save_output(df_clean, output_file)
         
         logger.info("USDA cleaning done!")
