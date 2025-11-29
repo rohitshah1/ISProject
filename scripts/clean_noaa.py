@@ -1,13 +1,4 @@
-"""
-clean_noaa.py
 
-Cleans and aggregates NOAA weather data from daily observations to county-year level.
-Computes temperature volatility metrics and prepares data for integration with crop yields.
-
-Author: Dev Rishi Udata
-Project: Climate Variability and Agricultural Productivity in Illinois
-Course: IS477
-"""
 
 import pandas as pd
 import numpy as np
@@ -15,7 +6,7 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-# Configure logging
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
@@ -24,15 +15,13 @@ logger = logging.getLogger(__name__)
 
 
 def load_noaa(filepath: str, chunksize: int = 50000) -> pd.DataFrame:
-    """
-    Load NOAA weather data in chunks since the file is huge.
-    """
+    
     logger.info(f"Loading NOAA data from {filepath}")
     
     if not Path(filepath).exists():
         raise FileNotFoundError(f"NOAA data file not found: {filepath}")
     
-    # Columns we need from NOAA data
+    
     required_columns = ['date', 'station', 'county_fips', 'tmax', 'tmin', 'tavg', 'prcp']
     
     chunks = []
@@ -41,7 +30,7 @@ def load_noaa(filepath: str, chunksize: int = 50000) -> pd.DataFrame:
     try:
         # Read CSV in chunks
         for chunk in pd.read_csv(filepath, chunksize=chunksize, low_memory=False):
-            # Select only required columns if they exist
+           
             available_cols = [col for col in required_columns if col in chunk.columns]
             chunk = chunk[available_cols]
             chunks.append(chunk)
@@ -61,9 +50,7 @@ def load_noaa(filepath: str, chunksize: int = 50000) -> pd.DataFrame:
 
 
 def clean_noaa(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Clean the raw NOAA data and convert units.
-    """
+    
     logger.info("Cleaning NOAA data...")
     initial_rows = len(df)
     
@@ -77,14 +64,13 @@ def clean_noaa(df: pd.DataFrame) -> pd.DataFrame:
     # Extract year for grouping
     df['year'] = df['date'].dt.year
     
-    # NOAA temperatures are stored in tenths of degrees Celsius
-    # Convert to actual degrees Celsius
+   
     temp_columns = ['tmax', 'tmin', 'tavg']
     for col in temp_columns:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce') / 10.0
     
-    # NOAA precipitation is in tenths of mm, convert to mm
+    
     if 'prcp' in df.columns:
         df['prcp'] = pd.to_numeric(df['prcp'], errors='coerce') / 10.0
     
@@ -94,7 +80,7 @@ def clean_noaa(df: pd.DataFrame) -> pd.DataFrame:
         df = df.dropna(subset=temp_columns, how='all')
         logger.info(f"Dropped {before - len(df):,} rows with all temperature values missing")
     
-    # Standardize county FIPS codes (ensure 5-digit format)
+   
     if 'county_fips' in df.columns:
         df['county_fips'] = df['county_fips'].astype(str).str.zfill(5)
     
@@ -103,15 +89,13 @@ def clean_noaa(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def aggregate_noaa(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Aggregate daily data to annual county-year level.
-    """
+    
     logger.info("Aggregating NOAA data to county-year level...")
     
-    # Group by county and year
+    
     group_cols = ['county_fips', 'year']
     
-    # Define aggregation functions
+
     agg_dict = {}
     
     if 'tmax' in df.columns:
@@ -123,17 +107,17 @@ def aggregate_noaa(df: pd.DataFrame) -> pd.DataFrame:
     if 'prcp' in df.columns:
         agg_dict['prcp'] = ['sum', 'mean']  # Total annual precip + mean daily
     
-    # Perform aggregation
+    
     df_agg = df.groupby(group_cols).agg(agg_dict).reset_index()
     
-    # Flatten column names
+   
     df_agg.columns = ['_'.join(col).strip('_') if col[1] else col[0] 
                       for col in df_agg.columns.values]
     
-    # Rename columns for clarity
+    
     rename_dict = {
         'tavg_mean': 'mean_temp',
-        'tavg_std': 'temp_sd',  # Temperature volatility (standard deviation)
+        'tavg_std': 'temp_sd',  
         'tmax_mean': 'mean_tmax',
         'tmin_mean': 'mean_tmin',
         'prcp_sum': 'annual_prcp',
@@ -150,18 +134,15 @@ def aggregate_noaa(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def save_output(df: pd.DataFrame, output_path: str) -> None:
-    """
-    Save the processed data to CSV.
-    """
-    # Create output directory if it doesn't exist
+   
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     
-    # Save to CSV
+   
     df.to_csv(output_path, index=False)
     logger.info(f"Data saved to {output_path}")
     logger.info(f"Output shape: {df.shape[0]:,} rows × {df.shape[1]} columns")
     
-    # Log summary statistics
+    
     logger.info("\nSummary Statistics:")
     logger.info(f"Mean annual temperature: {df['mean_temp'].mean():.2f}°C" if 'mean_temp' in df.columns else "")
     logger.info(f"Mean temperature volatility (SD): {df['temp_sd'].mean():.2f}°C" if 'temp_sd' in df.columns else "")
@@ -169,22 +150,21 @@ def save_output(df: pd.DataFrame, output_path: str) -> None:
 
 
 def main():
-    """Run the NOAA cleaning pipeline."""
-    # Define file paths
+   
     input_file = "/Users/dru/ISProject/data/raw/noaa_full.csv"
     output_file = "/Users/dru/ISProject/data/processed/noaa_clean.csv"
     
     try:
-        # Load the raw data
+       
         df = load_noaa(input_file, chunksize=50000)
         
-        # Clean it
+    
         df_clean = clean_noaa(df)
         
-        # Aggregate to county-year
+      
         df_agg = aggregate_noaa(df_clean)
         
-        # Save results
+   
         save_output(df_agg, output_file)
         
         logger.info("NOAA cleaning done!")
