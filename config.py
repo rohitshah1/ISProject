@@ -20,7 +20,7 @@ RAW_DATA_DIR = f"{PROJECT_ROOT}/data/raw"
 PROCESSED_DATA_DIR = f"{PROJECT_ROOT}/data/processed"
 
 
-REQUEST_DELAY = 1  # seconds between API requests
+REQUEST_DELAY = 1  
 MAX_RETRIES = 3
 
 
