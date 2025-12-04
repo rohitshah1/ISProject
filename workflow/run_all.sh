@@ -13,7 +13,7 @@ echo ""
 echo "Project root: $PROJECT_ROOT"
 echo ""
 
-# Create necessary directories
+
 echo "[1/4] Setting up directories..."
 mkdir -p "$PROJECT_ROOT/data/raw"
 mkdir -p "$PROJECT_ROOT/data/processed"
