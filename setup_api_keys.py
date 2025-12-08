@@ -1,21 +1,11 @@
-#!/usr/bin/env python3
-"""
-setup_api_keys.py
 
-Interactive script to set up API keys for data acquisition.
-Run this script and paste your API keys when prompted.
 
-Usage:
-    python setup_api_keys.py
-"""
 
 import os
 
 
 def setup_keys():
-    """
-    Interactive setup for API keys.
-    """
+    
     print("="*70)
     print(" Climate & Agriculture Project - API Key Setup")
     print("="*70)
@@ -32,7 +22,7 @@ def setup_keys():
     print("-"*70)
     print()
     
-    # Get NOAA token
+  
     print("Enter your NOAA API Token:")
     print("(or press Enter to skip)")
     noaa_token = input("NOAA Token: ").strip()
@@ -45,7 +35,7 @@ def setup_keys():
     
     print()
     
-    # Get USDA key
+    
     print("Enter your USDA NASS API Key:")
     print("(or press Enter to skip)")
     usda_key = input("USDA Key: ").strip()
@@ -60,12 +50,12 @@ def setup_keys():
     print("-"*70)
     print()
     
-    # Read current config
+    
     config_path = "/Users/dru/ISProject/config.py"
     with open(config_path, 'r') as f:
         config_content = f.read()
     
-    # Update tokens
+    
     config_content = config_content.replace(
         "NOAA_API_TOKEN = os.getenv('NOAA_API_TOKEN', 'YOUR_NOAA_TOKEN_HERE')",
         f"NOAA_API_TOKEN = os.getenv('NOAA_API_TOKEN', '{noaa_token}')"
@@ -76,7 +66,7 @@ def setup_keys():
         f"USDA_API_KEY = os.getenv('USDA_API_KEY', '{usda_key}')"
     )
     
-    # Write updated config
+    
     with open(config_path, 'w') as f:
         f.write(config_content)
     
@@ -84,7 +74,7 @@ def setup_keys():
     print(f"File: {config_path}")
     print()
     
-    # Check status
+    
     noaa_set = noaa_token != "YOUR_NOAA_TOKEN_HERE"
     usda_set = usda_key != "YOUR_USDA_KEY_HERE"
     
@@ -111,6 +101,7 @@ def setup_keys():
     
     print()
     print("="*70)
+    print("test")
 
 
 if __name__ == "__main__":
