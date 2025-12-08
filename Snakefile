@@ -1,12 +1,4 @@
-"""
-Snakefile
 
-Snakemake workflow for the Climate Variability and Agricultural Productivity project.
-Automates the entire analysis pipeline from data acquisition to visualization.
-
-Authors: Dev Rishi Udata & Rohit Shah
-Course: IS477
-"""
 
 # Configuration
 configfile: "config.yaml"
