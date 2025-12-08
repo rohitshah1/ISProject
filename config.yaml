@@ -1,0 +1,22 @@
+# Configuration for Snakemake workflow
+# Climate Variability and Agricultural Productivity in Illinois
+
+# Data parameters
+data:
+  start_year: 1990
+  end_year: 2023
+  state: "ILLINOIS"
+  crops:
+    - "CORN"
+    - "SOYBEANS"
+
+# Analysis parameters
+analysis:
+  significance_level: 0.05
+  volatility_quartiles: 4
+
+# Output parameters
+output:
+  dpi: 300
+  figure_format: "png"
+

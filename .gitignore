@@ -39,6 +39,7 @@ ENV/
 .DS_Store
 
 # Data files (large datasets should not be committed)
+# These files are hosted on Box - see README for download link
 data/raw/*.csv
 data/raw/*.txt
 data/raw/*.json
@@ -48,6 +49,9 @@ data/processed/*.parquet
 # Keep directory structure but not contents
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+
+# Box data directory (if downloaded locally)
+data/box/
 
 # Results and plots
 results/*.png

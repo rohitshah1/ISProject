@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite it as below."
+type: software
+title: "Climate Variability and Agricultural Productivity in Illinois"
+version: 1.0.0
+date-released: 2024-11-13
+authors:
+  - family-names: "Udata"
+    given-names: "Dev Rishi"
+    email: "dudata2@illinois.edu"
+    affiliation: "University of Illinois at Urbana-Champaign"
+  - family-names: "Shah"
+    given-names: "Rohit"
+    email: "rohitps2@illinois.edu"
+    affiliation: "University of Illinois at Urbana-Champaign"
+repository-code: "https://github.com/yourusername/climate-agriculture-il"
+keywords:
+  - climate change
+  - agriculture
+  - crop yields
+  - temperature volatility
+  - Illinois
+  - data analysis
+license: MIT
+abstract: >
+  A reproducible data analysis project examining the relationship between
+  climate variability and crop yields in Illinois. This project integrates
+  historical weather data from NOAA with agricultural yield data from USDA
+  to analyze how temperature volatility affects corn and soybean production.
+

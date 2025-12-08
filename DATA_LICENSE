@@ -1,0 +1,47 @@
+Data License
+
+Climate Variability and Agricultural Productivity in Illinois
+Authors: Dev Rishi Udata & Rohit Shah
+
+## Source Data
+
+This project uses data from two U.S. government sources, both in the public domain:
+
+### NOAA Climate Data Online
+- Source: National Centers for Environmental Information (NCEI)
+- URL: https://www.ncdc.noaa.gov/cdo-web/
+- License: Public Domain (U.S. Government Work)
+- Citation: NOAA National Centers for Environmental Information. (2024). 
+  Climate Data Online. https://www.ncdc.noaa.gov/cdo-web/
+
+### USDA NASS QuickStats
+- Source: National Agricultural Statistics Service
+- URL: https://quickstats.nass.usda.gov/
+- License: Public Domain (U.S. Government Work)
+- Citation: USDA National Agricultural Statistics Service. (2024). 
+  Quick Stats Database. https://quickstats.nass.usda.gov/
+
+## Derived Data
+
+All derived and processed data files created by this project (cleaned datasets,
+integrated datasets, analysis results) are released under CC0 1.0 Universal
+(CC0 1.0) Public Domain Dedication.
+
+To the extent possible under law, the authors have waived all copyright and
+related or neighboring rights to the derived data. This work is published from:
+United States.
+
+You can copy, modify, distribute and perform the work, even for commercial 
+purposes, all without asking permission.
+
+For more information: https://creativecommons.org/publicdomain/zero/1.0/
+
+## Data Usage
+
+When using this data, please cite:
+
+Udata, D. R., & Shah, R. (2024). Climate Variability and Agricultural 
+Productivity in Illinois [Data set]. University of Illinois at Urbana-Champaign.
+
+And cite the original data sources as listed above.
+
