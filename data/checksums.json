@@ -1,0 +1,35 @@
+{
+  "generated_at": "2025-12-07T22:41:26.105119",
+  "files": {
+    "data/raw/noaa_full.csv": {
+      "sha256": "d082b6e95ce8bf1b2e6d2a600aa284ef7e13193461e3212cd8d793dff102f9d9",
+      "size_bytes": 92925509,
+      "size_mb": 88.62,
+      "modified": "2025-12-07T22:29:16.459394"
+    },
+    "data/raw/usda_yields.csv": {
+      "sha256": "eb4a239fe9303522cb30329033930dc67750fe067878e04e3ac95dd8733abbe3",
+      "size_bytes": 410480,
+      "size_mb": 0.39,
+      "modified": "2025-12-07T22:29:23.381939"
+    },
+    "data/processed/noaa_clean.csv": {
+      "sha256": "3d554e94300772c18b39950562b86fb354d8dbddf801286b396c15f5517ce259",
+      "size_bytes": 4625,
+      "size_mb": 0.0,
+      "modified": "2025-12-07T22:41:15.654240"
+    },
+    "data/processed/usda_clean.csv": {
+      "sha256": "33c722b6063a7bff58108e6fb0450f6418466c548b78ce5ce426bc93945a811a",
+      "size_bytes": 34918,
+      "size_mb": 0.03,
+      "modified": "2025-12-07T22:41:15.967344"
+    },
+    "data/processed/integrated.csv": {
+      "sha256": "ff315ed23e7c47ae2f77997a94fbfc09dd3edb1dc8913e4726d1a222317e7a3a",
+      "size_bytes": 120354,
+      "size_mb": 0.11,
+      "modified": "2025-12-07T22:41:16.351535"
+    }
+  }
+}

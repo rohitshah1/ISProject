@@ -67,7 +67,7 @@ logs/
 .env
 secrets.json
 *.key
-config.py  # Uncomment if config.py contains real API keys
+config.py
 
 # OS specific
 .DS_Store

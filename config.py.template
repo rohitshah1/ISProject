@@ -1,14 +1,13 @@
 """
-config.py
+config.py.template
 
-Configuration file for API keys and project settings.
-Store your API keys here and import into data acquisition scripts.
+Template configuration file for API keys and project settings.
+Copy this file to config.py and add your actual API keys.
 
-IMPORTANT: This file should NOT be committed to Git if it contains real API keys.
-Add config.py to .gitignore if using real keys.
+IMPORTANT: Do not commit config.py with real API keys to Git.
 
 For this project, you can either:
-1. Edit this file directly with your keys
+1. Edit config.py directly with your keys
 2. Use environment variables (more secure)
 """
 

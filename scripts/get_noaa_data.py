@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 get_noaa_data.py
 

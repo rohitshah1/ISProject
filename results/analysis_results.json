@@ -1,0 +1,32 @@
+{
+  "model1": {
+    "formula": "crop_yield ~ temp_sd",
+    "r_squared": 0.00013280437416907098,
+    "adj_r_squared": -0.0007904340336108984,
+    "coef_temp_sd": -0.7343661675470512,
+    "pval_temp_sd": 0.7045612271331476
+  },
+  "model2": {
+    "formula": "crop_yield ~ mean_temp + temp_sd + annual_prcp",
+    "r_squared": 0.007475647358343385,
+    "adj_r_squared": 0.00472118569513813,
+    "coef_temp_sd": -4.411765706836285,
+    "pval_temp_sd": 0.05834769788289104
+  },
+  "model3_corn": {
+    "formula": "crop_yield ~ mean_temp + temp_sd + annual_prcp (for CORN)",
+    "r_squared": 0.18604731637481808,
+    "adj_r_squared": 0.18152535702134487,
+    "coef_temp_sd": -6.465170753417761,
+    "pval_temp_sd": 2.949649421845054e-11,
+    "n": 544
+  },
+  "model3_soybeans": {
+    "formula": "crop_yield ~ mean_temp + temp_sd + annual_prcp (for SOYBEANS)",
+    "r_squared": 0.1151725422915022,
+    "adj_r_squared": 0.11022937213670603,
+    "coef_temp_sd": -1.9789941132924103,
+    "pval_temp_sd": 4.9340737604210906e-08,
+    "n": 541
+  }
+}

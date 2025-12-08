@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 get_usda_data.py
 

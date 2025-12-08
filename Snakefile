@@ -22,7 +22,7 @@ rule all:
         "results/analysis_results.json",
         "results/data_profile.json",
         # Visualizations
-        "results/yield_vs_volatility.png",
+        "results/crop_yield_vs_volatility.png",
         "results/temporal_trends.png",
         "results/correlation_matrix.png",
         # Data integrity
@@ -105,11 +105,11 @@ rule visualize_results:
     input:
         "data/processed/integrated.csv"
     output:
-        "results/yield_vs_volatility.png",
+        "results/crop_yield_vs_volatility.png",
         "results/temporal_trends.png",
         "results/correlation_matrix.png",
         "results/volatility_distribution.png",
-        "results/yield_by_quartile.png",
+        "results/crop_yield_by_quartile.png",
         "results/geographic_summary.png"
     log:
         "logs/visualize_results.log"

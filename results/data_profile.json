@@ -1,0 +1,997 @@
+{
+  "NOAA Raw": {
+    "dataset_name": "NOAA Raw",
+    "filepath": "/Users/dru/ISProject/data/raw/noaa_full.csv",
+    "profiled_at": "2025-12-07T22:41:17.136572",
+    "basic_info": {
+      "rows": 1926414,
+      "columns": 7,
+      "memory_usage_mb": 349.06271743774414
+    },
+    "columns": {
+      "date": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 11295
+      },
+      "station": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 2003
+      },
+      "PRCP": {
+        "dtype": "float64",
+        "missing_count": 920058,
+        "missing_percent": 47.760138786366795,
+        "unique_count": 771,
+        "stats": {
+          "mean": 3.3325199034933943,
+          "std": 9.098753874153298,
+          "min": 0.0,
+          "max": 355.6,
+          "q25": 0.0,
+          "median": 0.0,
+          "q75": 1.5
+        },
+        "outlier_count": 194015,
+        "outlier_percent": 10.07130346851715
+      },
+      "TAVG": {
+        "dtype": "float64",
+        "missing_count": 1849350,
+        "missing_percent": 95.99961379018217,
+        "unique_count": 563,
+        "stats": {
+          "mean": 12.575768192671024,
+          "std": 10.730998384317052,
+          "min": -28.1,
+          "max": 60.0,
+          "q25": 4.1,
+          "median": 13.9,
+          "q75": 21.9
+        },
+        "outlier_count": 46,
+        "outlier_percent": 0.0023878564005452617
+      },
+      "TMAX": {
+        "dtype": "float64",
+        "missing_count": 1055151,
+        "missing_percent": 54.77280584547247,
+        "unique_count": 561,
+        "stats": {
+          "mean": 16.440072859744987,
+          "std": 11.82665495646836,
+          "min": -27.2,
+          "max": 59.4,
+          "q25": 6.7,
+          "median": 17.8,
+          "q75": 27.2
+        },
+        "outlier_count": 47,
+        "outlier_percent": 0.0024397663222962456
+      },
+      "TMIN": {
+        "dtype": "float64",
+        "missing_count": 1036982,
+        "missing_percent": 53.82965447717885,
+        "unique_count": 563,
+        "stats": {
+          "mean": 5.8318741623867805,
+          "std": 10.678184716403438,
+          "min": -72.8,
+          "max": 60.0,
+          "q25": -1.7,
+          "median": 6.1,
+          "q75": 15.0
+        },
+        "outlier_count": 1115,
+        "outlier_percent": 0.05787956275234711
+      },
+      "county_fips": {
+        "dtype": "float64",
+        "missing_count": 1926414,
+        "missing_percent": 100.0,
+        "unique_count": 0,
+        "stats": {
+          "mean": NaN,
+          "std": NaN,
+          "min": NaN,
+          "max": NaN,
+          "q25": NaN,
+          "median": NaN,
+          "q75": NaN
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      }
+    },
+    "quality": {
+      "score": 80,
+      "issues": [
+        "High missing data: 50.3%"
+      ]
+    }
+  },
+  "USDA Raw": {
+    "dataset_name": "USDA Raw",
+    "filepath": "/Users/dru/ISProject/data/raw/usda_yields.csv",
+    "profiled_at": "2025-12-07T22:41:18.787731",
+    "basic_info": {
+      "rows": 1210,
+      "columns": 39,
+      "memory_usage_mb": 1.901045799255371
+    },
+    "columns": {
+      "util_practice_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 2
+      },
+      "group_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "watershed_code": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1,
+        "stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "q25": 0.0,
+          "median": 0.0,
+          "q75": 0.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "sector_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "statisticcat_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "county_code": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 103,
+        "stats": {
+          "mean": 132.85619834710744,
+          "std": 170.25236699846295,
+          "min": 1.0,
+          "max": 998.0,
+          "q25": 55.0,
+          "median": 107.0,
+          "q75": 160.5
+        },
+        "outlier_count": 40,
+        "outlier_percent": 3.3057851239669422
+      },
+      "week_ending": {
+        "dtype": "float64",
+        "missing_count": 1210,
+        "missing_percent": 100.0,
+        "unique_count": 0,
+        "stats": {
+          "mean": NaN,
+          "std": NaN,
+          "min": NaN,
+          "max": NaN,
+          "q25": NaN,
+          "median": NaN,
+          "q75": NaN
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "class_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "county_ansi": {
+        "dtype": "float64",
+        "missing_count": 40,
+        "missing_percent": 3.3057851239669422,
+        "unique_count": 102,
+        "stats": {
+          "mean": 103.27863247863247,
+          "std": 59.08779888943163,
+          "min": 1.0,
+          "max": 203.0,
+          "q25": 53.0,
+          "median": 103.0,
+          "q75": 155.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "asd_desc": {
+        "dtype": "object",
+        "missing_count": 10,
+        "missing_percent": 0.8264462809917356,
+        "unique_count": 9
+      },
+      "Value": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 705,
+        "stats": {
+          "mean": 128.39570247933884,
+          "std": 70.19366308422633,
+          "min": 34.0,
+          "max": 248.2,
+          "q25": 60.8,
+          "median": 129.15,
+          "q75": 197.8
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "agg_level_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "county_name": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 104
+      },
+      "unit_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "load_time": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 4
+      },
+      "begin_code": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1,
+        "stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "q25": 0.0,
+          "median": 0.0,
+          "q75": 0.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "state_name": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "commodity_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 2
+      },
+      "source_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "state_alpha": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "watershed_desc": {
+        "dtype": "float64",
+        "missing_count": 1210,
+        "missing_percent": 100.0,
+        "unique_count": 0,
+        "stats": {
+          "mean": NaN,
+          "std": NaN,
+          "min": NaN,
+          "max": NaN,
+          "q25": NaN,
+          "median": NaN,
+          "q75": NaN
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "zip_5": {
+        "dtype": "float64",
+        "missing_count": 1210,
+        "missing_percent": 100.0,
+        "unique_count": 0,
+        "stats": {
+          "mean": NaN,
+          "std": NaN,
+          "min": NaN,
+          "max": NaN,
+          "q25": NaN,
+          "median": NaN,
+          "q75": NaN
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "state_ansi": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1,
+        "stats": {
+          "mean": 17.0,
+          "std": 0.0,
+          "min": 17.0,
+          "max": 17.0,
+          "q25": 17.0,
+          "median": 17.0,
+          "q75": 17.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "asd_code": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 10,
+        "stats": {
+          "mean": 51.81818181818182,
+          "std": 26.28831049758056,
+          "min": 10.0,
+          "max": 99.0,
+          "q25": 30.0,
+          "median": 60.0,
+          "q75": 70.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "domain_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "country_code": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1,
+        "stats": {
+          "mean": 9000.0,
+          "std": 0.0,
+          "min": 9000.0,
+          "max": 9000.0,
+          "q25": 9000.0,
+          "median": 9000.0,
+          "q75": 9000.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "CV (%)": {
+        "dtype": "float64",
+        "missing_count": 355,
+        "missing_percent": 29.338842975206614,
+        "unique_count": 62,
+        "stats": {
+          "mean": 2.7525146198830406,
+          "std": 1.1193487220496383,
+          "min": 0.5,
+          "max": 7.3,
+          "q25": 1.9,
+          "median": 2.5,
+          "q75": 3.4
+        },
+        "outlier_count": 22,
+        "outlier_percent": 1.8181818181818181
+      },
+      "year": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 7,
+        "stats": {
+          "mean": 2020.8628099173554,
+          "std": 1.9419249031386616,
+          "min": 2018.0,
+          "max": 2024.0,
+          "q25": 2019.0,
+          "median": 2021.0,
+          "q75": 2023.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "state_fips_code": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1,
+        "stats": {
+          "mean": 17.0,
+          "std": 0.0,
+          "min": 17.0,
+          "max": 17.0,
+          "q25": 17.0,
+          "median": 17.0,
+          "q75": 17.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "congr_district_code": {
+        "dtype": "float64",
+        "missing_count": 1210,
+        "missing_percent": 100.0,
+        "unique_count": 0,
+        "stats": {
+          "mean": NaN,
+          "std": NaN,
+          "min": NaN,
+          "max": NaN,
+          "q25": NaN,
+          "median": NaN,
+          "q75": NaN
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "short_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 2
+      },
+      "freq_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "domaincat_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "reference_period_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "prodn_practice_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "region_desc": {
+        "dtype": "float64",
+        "missing_count": 1210,
+        "missing_percent": 100.0,
+        "unique_count": 0,
+        "stats": {
+          "mean": NaN,
+          "std": NaN,
+          "min": NaN,
+          "max": NaN,
+          "q25": NaN,
+          "median": NaN,
+          "q75": NaN
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "country_name": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1
+      },
+      "location_desc": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 112
+      },
+      "end_code": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 1,
+        "stats": {
+          "mean": 0.0,
+          "std": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "q25": 0.0,
+          "median": 0.0,
+          "q75": 0.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      }
+    },
+    "quality": {
+      "score": 0,
+      "issues": [
+        "High missing data: 13.7%",
+        "Constant columns: group_desc, watershed_code, sector_desc, statisticcat_desc, class_desc, agg_level_desc, unit_desc, begin_code, state_name, source_desc, state_alpha, state_ansi, domain_desc, country_code, state_fips_code, freq_desc, domaincat_desc, reference_period_desc, prodn_practice_desc, country_name, end_code"
+      ]
+    }
+  },
+  "NOAA Cleaned": {
+    "dataset_name": "NOAA Cleaned",
+    "filepath": "/Users/dru/ISProject/data/processed/noaa_clean.csv",
+    "profiled_at": "2025-12-07T22:41:18.817176",
+    "basic_info": {
+      "rows": 34,
+      "columns": 9,
+      "memory_usage_mb": 0.0024566650390625
+    },
+    "columns": {
+      "year": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 34,
+        "stats": {
+          "mean": 2006.5,
+          "std": 9.958246164193104,
+          "min": 1990.0,
+          "max": 2023.0,
+          "q25": 1998.25,
+          "median": 2006.5,
+          "q75": 2014.75
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "mean_tmax": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 34,
+        "stats": {
+          "mean": 15.125669666053367,
+          "std": 5.531266826151419,
+          "min": -2.185225999252895,
+          "max": 24.024261024067197,
+          "q25": 12.610391785947447,
+          "median": 16.023890293246332,
+          "q75": 18.367803787184037
+        },
+        "outlier_count": 1,
+        "outlier_percent": 2.941176470588235
+      },
+      "tmax_std": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 34,
+        "stats": {
+          "mean": 10.347301620796983,
+          "std": 1.9792112513057565,
+          "min": 4.4615808661465515,
+          "max": 13.31482866799942,
+          "q25": 9.37186756305214,
+          "median": 10.353639742215071,
+          "q75": 11.999694127172763
+        },
+        "outlier_count": 1,
+        "outlier_percent": 2.941176470588235
+      },
+      "mean_tmin": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 34,
+        "stats": {
+          "mean": 5.02816210167211,
+          "std": 4.336648564762182,
+          "min": -2.8105923924340055,
+          "max": 11.433649525711433,
+          "q25": 1.2303116906016314,
+          "median": 5.720106725426607,
+          "q75": 8.504131794600264
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "tmin_std": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 34,
+        "stats": {
+          "mean": 9.646201717548214,
+          "std": 1.9356418431230018,
+          "min": 5.452750435795035,
+          "max": 14.1644901876387,
+          "q25": 8.107899341433983,
+          "median": 9.58954874010779,
+          "q75": 10.821162137518783
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "mean_temp": {
+        "dtype": "float64",
+        "missing_count": 8,
+        "missing_percent": 23.52941176470588,
+        "unique_count": 26,
+        "stats": {
+          "mean": 13.105386843920233,
+          "std": 2.7171750925373557,
+          "min": 4.333031400966184,
+          "max": 18.538709677419355,
+          "q25": 11.711813466017736,
+          "median": 13.378318941753847,
+          "q75": 14.422465753424659
+        },
+        "outlier_count": 2,
+        "outlier_percent": 5.88235294117647
+      },
+      "temp_sd": {
+        "dtype": "float64",
+        "missing_count": 8,
+        "missing_percent": 23.52941176470588,
+        "unique_count": 26,
+        "stats": {
+          "mean": 10.169070458601754,
+          "std": 1.011132582154234,
+          "min": 8.69707588482956,
+          "max": 11.782308596204418,
+          "q25": 9.288179494718197,
+          "median": 10.16410256825158,
+          "q75": 10.990058749314022
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "annual_prcp": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 34,
+        "stats": {
+          "mean": 29615.399999999998,
+          "std": 22571.098753937524,
+          "min": 2485.0,
+          "max": 91141.1,
+          "q25": 15726.25,
+          "median": 24993.4,
+          "q75": 35970.175
+        },
+        "outlier_count": 3,
+        "outlier_percent": 8.823529411764707
+      },
+      "mean_daily_prcp": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 34,
+        "stats": {
+          "mean": 3.1196076797145262,
+          "std": 1.189768304949779,
+          "min": 0.774601226993865,
+          "max": 6.20219265829022,
+          "q25": 2.421109575262903,
+          "median": 2.9698461709616084,
+          "q75": 3.7066224106236665
+        },
+        "outlier_count": 1,
+        "outlier_percent": 2.941176470588235
+      }
+    },
+    "quality": {
+      "score": 90,
+      "issues": [
+        "Moderate missing data: 5.2%"
+      ]
+    }
+  },
+  "USDA Cleaned": {
+    "dataset_name": "USDA Cleaned",
+    "filepath": "/Users/dru/ISProject/data/processed/usda_clean.csv",
+    "profiled_at": "2025-12-07T22:41:18.824898",
+    "basic_info": {
+      "rows": 1210,
+      "columns": 5,
+      "memory_usage_mb": 0.10973930358886719
+    },
+    "columns": {
+      "year": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 7,
+        "stats": {
+          "mean": 2020.8628099173554,
+          "std": 1.9419249031386616,
+          "min": 2018.0,
+          "max": 2024.0,
+          "q25": 2019.0,
+          "median": 2021.0,
+          "q75": 2023.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "county_fips": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 103,
+        "stats": {
+          "mean": 17132.856198347108,
+          "std": 170.25236699846295,
+          "min": 17001.0,
+          "max": 17998.0,
+          "q25": 17055.0,
+          "median": 17107.0,
+          "q75": 17160.5
+        },
+        "outlier_count": 40,
+        "outlier_percent": 3.3057851239669422
+      },
+      "county_name": {
+        "dtype": "float64",
+        "missing_count": 40,
+        "missing_percent": 3.3057851239669422,
+        "unique_count": 102,
+        "stats": {
+          "mean": 103.27863247863247,
+          "std": 59.08779888943163,
+          "min": 1.0,
+          "max": 203.0,
+          "q25": 53.0,
+          "median": 103.0,
+          "q75": 155.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "commodity": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 2
+      },
+      "yield": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 705,
+        "stats": {
+          "mean": 128.39570247933884,
+          "std": 70.19366308422633,
+          "min": 34.0,
+          "max": 248.2,
+          "q25": 60.8,
+          "median": 129.15,
+          "q75": 197.8
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      }
+    },
+    "quality": {
+      "score": 100,
+      "issues": [
+        "Duplicate rows: 2 (0.2%)"
+      ]
+    }
+  },
+  "Integrated": {
+    "dataset_name": "Integrated",
+    "filepath": "/Users/dru/ISProject/data/processed/integrated.csv",
+    "profiled_at": "2025-12-07T22:41:18.831192",
+    "basic_info": {
+      "rows": 1085,
+      "columns": 10,
+      "memory_usage_mb": 0.13980579376220703
+    },
+    "columns": {
+      "county_fips": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 103,
+        "stats": {
+          "mean": 17133.91797235023,
+          "std": 174.62212154156813,
+          "min": 17001.0,
+          "max": 17998.0,
+          "q25": 17055.0,
+          "median": 17105.0,
+          "q75": 17161.0
+        },
+        "outlier_count": 38,
+        "outlier_percent": 3.5023041474654377
+      },
+      "county_name": {
+        "dtype": "float64",
+        "missing_count": 38,
+        "missing_percent": 3.5023041474654377,
+        "unique_count": 102,
+        "stats": {
+          "mean": 102.55682903533906,
+          "std": 59.090512681642444,
+          "min": 1.0,
+          "max": 203.0,
+          "q25": 53.0,
+          "median": 103.0,
+          "q75": 154.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "year": {
+        "dtype": "int64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 6,
+        "stats": {
+          "mean": 2020.5013824884793,
+          "std": 1.7147202730001512,
+          "min": 2018.0,
+          "max": 2023.0,
+          "q25": 2019.0,
+          "median": 2020.0,
+          "q75": 2022.0
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "commodity": {
+        "dtype": "object",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 2
+      },
+      "crop_yield": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 655,
+        "stats": {
+          "mean": 127.63944700460831,
+          "std": 69.51670053181786,
+          "min": 34.0,
+          "max": 246.0,
+          "q25": 60.8,
+          "median": 129.0,
+          "q75": 196.4
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "mean_temp": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 6,
+        "stats": {
+          "mean": 12.69441257165898,
+          "std": 1.8809654389881179,
+          "min": 10.147644376899695,
+          "max": 15.412808641975309,
+          "q25": 11.01439879381832,
+          "median": 11.954727440714503,
+          "q75": 13.982673478075778
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "temp_sd": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 6,
+        "stats": {
+          "mean": 10.210259455892633,
+          "std": 1.090894319343032,
+          "min": 8.69707588482956,
+          "max": 11.449495886378427,
+          "q25": 9.260337180469469,
+          "median": 9.67886034676358,
+          "q75": 11.427581858332468
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "annual_prcp": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 6,
+        "stats": {
+          "mean": 21160.965253456223,
+          "std": 10005.599170101244,
+          "min": 7795.2,
+          "max": 36512.8,
+          "q25": 11478.0,
+          "median": 24812.1,
+          "q75": 27872.2
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      },
+      "mean_tmax": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 6,
+        "stats": {
+          "mean": 16.09474679822271,
+          "std": 1.4796053898344026,
+          "min": 13.3025456707383,
+          "max": 18.20579779731717,
+          "q25": 15.829675018775175,
+          "median": 16.15170202139684,
+          "q75": 17.00098984511232
+        },
+        "outlier_count": 189,
+        "outlier_percent": 17.419354838709676
+      },
+      "mean_tmin": {
+        "dtype": "float64",
+        "missing_count": 0,
+        "missing_percent": 0.0,
+        "unique_count": 6,
+        "stats": {
+          "mean": 0.8956797461489784,
+          "std": 3.5738529821595795,
+          "min": -2.8105923924340055,
+          "max": 6.952316633358602,
+          "q25": -2.3271806336675165,
+          "median": -1.4838764643237488,
+          "q75": 4.733989820756805
+        },
+        "outlier_count": 0,
+        "outlier_percent": 0.0
+      }
+    },
+    "quality": {
+      "score": 100,
+      "issues": [
+        "Duplicate rows: 2 (0.2%)"
+      ]
+    }
+  }
+}

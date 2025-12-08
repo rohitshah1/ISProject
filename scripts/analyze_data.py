@@ -1,7 +1,7 @@
 """
 analyze_data.py
 
-Performs statistical analysis on the integrated dataset.
+Statistical analysis of climate variability and crop yields.
 Runs regression models to analyze temperature volatility impacts on crop yields.
 
 Author: Rohit Shah
@@ -46,7 +46,7 @@ def exploratory_analysis(df: pd.DataFrame):
     
     # Descriptive stats
     logger.info("\nDescriptive Statistics:")
-    logger.info(df[['yield', 'mean_temp', 'temp_sd', 'annual_prcp']].describe())
+    logger.info(df[['crop_yield', 'mean_temp', 'temp_sd', 'annual_prcp']].describe())
     
     # By crop
     logger.info("\nBy Crop Type:")
@@ -54,8 +54,8 @@ def exploratory_analysis(df: pd.DataFrame):
         subset = df[df['commodity'] == crop]
         logger.info(f"\n{crop}:")
         logger.info(f"  N: {len(subset)}")
-        logger.info(f"  Yield mean: {subset['yield'].mean():.2f}")
-        logger.info(f"  Yield std: {subset['yield'].std():.2f}")
+        logger.info(f"  Yield mean: {subset['crop_yield'].mean():.2f}")
+        logger.info(f"  Yield std: {subset['crop_yield'].std():.2f}")
         logger.info(f"  Temp volatility mean: {subset['temp_sd'].mean():.2f}")
 
 
@@ -67,12 +67,12 @@ def run_regression_analysis(df: pd.DataFrame):
     
     results = {}
     
-    # Model 1: Simple regression - yield on temperature volatility
+    # Model 1: Simple regression - crop_yield on temperature volatility
     logger.info("\nModel 1: Yield ~ Temperature Volatility")
-    model1 = smf.ols('yield ~ temp_sd', data=df).fit()
+    model1 = smf.ols('crop_yield ~ temp_sd', data=df).fit()
     logger.info(model1.summary())
     results['model1'] = {
-        'formula': 'yield ~ temp_sd',
+        'formula': 'crop_yield ~ temp_sd',
         'r_squared': model1.rsquared,
         'adj_r_squared': model1.rsquared_adj,
         'coef_temp_sd': model1.params.get('temp_sd', None),
@@ -81,10 +81,10 @@ def run_regression_analysis(df: pd.DataFrame):
     
     # Model 2: Multiple regression
     logger.info("\n\nModel 2: Yield ~ Temperature + Volatility + Precipitation")
-    model2 = smf.ols('yield ~ mean_temp + temp_sd + annual_prcp', data=df).fit()
+    model2 = smf.ols('crop_yield ~ mean_temp + temp_sd + annual_prcp', data=df).fit()
     logger.info(model2.summary())
     results['model2'] = {
-        'formula': 'yield ~ mean_temp + temp_sd + annual_prcp',
+        'formula': 'crop_yield ~ mean_temp + temp_sd + annual_prcp',
         'r_squared': model2.rsquared,
         'adj_r_squared': model2.rsquared_adj,
         'coef_temp_sd': model2.params.get('temp_sd', None),
@@ -96,12 +96,12 @@ def run_regression_analysis(df: pd.DataFrame):
     for crop in df['commodity'].unique():
         logger.info(f"\n{crop}:")
         crop_df = df[df['commodity'] == crop]
-        model_crop = smf.ols('yield ~ mean_temp + temp_sd + annual_prcp', 
+        model_crop = smf.ols('crop_yield ~ mean_temp + temp_sd + annual_prcp', 
                              data=crop_df).fit()
         logger.info(model_crop.summary())
         
         results[f'model3_{crop.lower()}'] = {
-            'formula': f'yield ~ mean_temp + temp_sd + annual_prcp (for {crop})',
+            'formula': f'crop_yield ~ mean_temp + temp_sd + annual_prcp (for {crop})',
             'r_squared': model_crop.rsquared,
             'adj_r_squared': model_crop.rsquared_adj,
             'coef_temp_sd': model_crop.params.get('temp_sd', None),
@@ -122,11 +122,11 @@ def test_volatility_thresholds(df: pd.DataFrame):
     df['volatility_quartile'] = pd.qcut(df['temp_sd'], q=4, labels=['Q1', 'Q2', 'Q3', 'Q4'])
     
     logger.info("\nMean Yield by Volatility Quartile:")
-    quartile_means = df.groupby('volatility_quartile')['yield'].agg(['mean', 'std', 'count'])
+    quartile_means = df.groupby('volatility_quartile')['crop_yield'].agg(['mean', 'std', 'count'])
     logger.info(quartile_means)
     
     # ANOVA test
-    groups = [df[df['volatility_quartile'] == q]['yield'].values 
+    groups = [df[df['volatility_quartile'] == q]['crop_yield'].values 
               for q in ['Q1', 'Q2', 'Q3', 'Q4']]
     f_stat, p_value = stats.f_oneway(*groups)
     
@@ -150,7 +150,7 @@ def analyze_temporal_trends(df: pd.DataFrame):
     logger.info("\nYield Trends:")
     for crop in df['commodity'].unique():
         crop_df = df[df['commodity'] == crop]
-        yearly_avg = crop_df.groupby('year')['yield'].mean()
+        yearly_avg = crop_df.groupby('year')['crop_yield'].mean()
         
         # Simple linear trend
         X = yearly_avg.index.values.reshape(-1, 1)

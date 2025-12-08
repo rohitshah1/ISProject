@@ -21,6 +21,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Dynamically compute project root for portability
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
 
 def compute_sha256(filepath: str):
     """Compute SHA-256 checksum of a file."""
@@ -53,7 +56,7 @@ def generate_checksums():
         "data/processed/integrated.csv"
     ]
     
-    base_dir = Path("/Users/dru/ISProject")
+    base_dir = PROJECT_ROOT
     
     for rel_path in data_files:
         filepath = base_dir / rel_path
@@ -91,7 +94,7 @@ def verify_checksums(checksum_file: str):
     with open(checksum_file, 'r') as f:
         stored_checksums = json.load(f)
     
-    base_dir = Path("/Users/dru/ISProject")
+    base_dir = PROJECT_ROOT
     all_valid = True
     
     for rel_path, file_info in stored_checksums['files'].items():

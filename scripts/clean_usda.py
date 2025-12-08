@@ -1,8 +1,8 @@
 """
 clean_usda.py
 
-Cleans and standardizes USDA NASS QuickStats crop yield data for Illinois.
-Filters for corn and soybeans, normalizes county codes, and prepares data for integration.
+Cleans and standardizes USDA crop yield data.
+Filters for Illinois corn and soybean yields and prepares data for integration.
 
 Author: Rohit Shah
 Project: Climate Variability and Agricultural Productivity in Illinois

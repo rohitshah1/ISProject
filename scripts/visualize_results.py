@@ -2,7 +2,7 @@
 visualize_results.py
 
 Creates visualizations for the climate and agriculture analysis.
-Generates plots showing relationships between temperature volatility and yields.
+Generates plots showing relationships between temperature volatility and crop_yields.
 
 Author: Dev Rishi Udata
 Project: Climate Variability and Agricultural Productivity in Illinois
@@ -40,19 +40,19 @@ def load_data(filepath: str):
     return df
 
 
-def plot_yield_vs_volatility(df: pd.DataFrame, output_dir: str):
-    """Scatter plot of yield vs temperature volatility."""
-    logger.info("Creating yield vs volatility plot...")
+def plot_crop_yield_vs_volatility(df: pd.DataFrame, output_dir: str):
+    """Scatter plot of crop_yield vs temperature volatility."""
+    logger.info("Creating crop_yield vs volatility plot...")
     
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
     
     for idx, crop in enumerate(df['commodity'].unique()):
         crop_df = df[df['commodity'] == crop]
         
-        axes[idx].scatter(crop_df['temp_sd'], crop_df['yield'], alpha=0.3)
+        axes[idx].scatter(crop_df['temp_sd'], crop_df['crop_yield'], alpha=0.3)
         
         # Add trend line
-        z = np.polyfit(crop_df['temp_sd'], crop_df['yield'], 1)
+        z = np.polyfit(crop_df['temp_sd'], crop_df['crop_yield'], 1)
         p = np.poly1d(z)
         x_line = np.linspace(crop_df['temp_sd'].min(), crop_df['temp_sd'].max(), 100)
         axes[idx].plot(x_line, p(x_line), "r--", linewidth=2)
@@ -63,7 +63,7 @@ def plot_yield_vs_volatility(df: pd.DataFrame, output_dir: str):
         axes[idx].grid(True, alpha=0.3)
     
     plt.tight_layout()
-    output_path = Path(output_dir) / 'yield_vs_volatility.png'
+    output_path = Path(output_dir) / 'crop_yield_vs_volatility.png'
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     plt.close()
     
@@ -71,7 +71,7 @@ def plot_yield_vs_volatility(df: pd.DataFrame, output_dir: str):
 
 
 def plot_temporal_trends(df: pd.DataFrame, output_dir: str):
-    """Plot yield and volatility trends over time."""
+    """Plot crop_yield and volatility trends over time."""
     logger.info("Creating temporal trends plot...")
     
     fig, axes = plt.subplots(2, 1, figsize=(12, 10))
@@ -79,7 +79,7 @@ def plot_temporal_trends(df: pd.DataFrame, output_dir: str):
     # Yield trends by crop
     for crop in df['commodity'].unique():
         crop_df = df[df['commodity'] == crop]
-        yearly_avg = crop_df.groupby('year')['yield'].mean()
+        yearly_avg = crop_df.groupby('year')['crop_yield'].mean()
         axes[0].plot(yearly_avg.index, yearly_avg.values, marker='o', label=crop)
     
     axes[0].set_xlabel('Year')
@@ -134,7 +134,7 @@ def plot_correlation_matrix(df: pd.DataFrame, output_dir: str):
     logger.info("Creating correlation matrix...")
     
     # Select numeric columns
-    numeric_cols = ['yield', 'mean_temp', 'temp_sd', 'annual_prcp']
+    numeric_cols = ['crop_yield', 'mean_temp', 'temp_sd', 'annual_prcp']
     if 'mean_tmax' in df.columns:
         numeric_cols.append('mean_tmax')
     if 'mean_tmin' in df.columns:
@@ -155,9 +155,9 @@ def plot_correlation_matrix(df: pd.DataFrame, output_dir: str):
     logger.info(f"Saved: {output_path}")
 
 
-def plot_yield_by_volatility_quartile(df: pd.DataFrame, output_dir: str):
-    """Box plot of yields by volatility quartiles."""
-    logger.info("Creating yield by quartile plot...")
+def plot_crop_yield_by_volatility_quartile(df: pd.DataFrame, output_dir: str):
+    """Box plot of crop_yields by volatility quartiles."""
+    logger.info("Creating crop_yield by quartile plot...")
     
     # Create quartiles
     df['volatility_quartile'] = pd.qcut(df['temp_sd'], q=4, labels=['Q1 (Low)', 'Q2', 'Q3', 'Q4 (High)'])
@@ -167,14 +167,14 @@ def plot_yield_by_volatility_quartile(df: pd.DataFrame, output_dir: str):
     for idx, crop in enumerate(df['commodity'].unique()):
         crop_df = df[df['commodity'] == crop]
         
-        crop_df.boxplot(column='yield', by='volatility_quartile', ax=axes[idx])
+        crop_df.boxplot(column='crop_yield', by='volatility_quartile', ax=axes[idx])
         axes[idx].set_xlabel('Temperature Volatility Quartile')
         axes[idx].set_ylabel('Yield (bu/acre)')
         axes[idx].set_title(f'{crop} Yield by Volatility Quartile')
         axes[idx].get_figure().suptitle('')  # Remove automatic title
     
     plt.tight_layout()
-    output_path = Path(output_dir) / 'yield_by_quartile.png'
+    output_path = Path(output_dir) / 'crop_yield_by_quartile.png'
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     plt.close()
     
@@ -185,8 +185,8 @@ def plot_geographic_summary(df: pd.DataFrame, output_dir: str):
     """Create summary statistics by county."""
     logger.info("Creating geographic summary plot...")
     
-    # Mean yield by county
-    county_means = df.groupby(['county_fips', 'commodity'])['yield'].mean().unstack()
+    # Mean crop_yield by county
+    county_means = df.groupby(['county_fips', 'commodity'])['crop_yield'].mean().unstack()
     
     # Top 10 and bottom 10 counties for each crop
     fig, axes = plt.subplots(1, 2, figsize=(14, 8))
@@ -223,11 +223,11 @@ def main():
         df = load_data(input_file)
         
         # Generate plots
-        plot_yield_vs_volatility(df, output_dir)
+        plot_crop_yield_vs_volatility(df, output_dir)
         plot_temporal_trends(df, output_dir)
         plot_volatility_distributions(df, output_dir)
         plot_correlation_matrix(df, output_dir)
-        plot_yield_by_volatility_quartile(df, output_dir)
+        plot_crop_yield_by_volatility_quartile(df, output_dir)
         plot_geographic_summary(df, output_dir)
         
         logger.info("\n" + "="*60)
