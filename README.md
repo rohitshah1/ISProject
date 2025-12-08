@@ -1,417 +1,72 @@
-# Climate Variability and Agricultural Productivity in Illinois
-
-A reproducible data analysis project examining the relationship between climate variability and crop yields in Illinois.
-
-**Course:** IS477 - Data Lifecycle  
-**Authors:** Dev Rishi Udata, Rohit Shah  
-**Institution:** University of Illinois at Urbana-Champaign
-
-**Status:** Complete - All Analysis and Visualizations Finished
-
-**Box Data Link:** [INSERT YOUR BOX LINK HERE - data.zip contains all raw and processed data]
-
----
-
-## Project Overview
-
-This project integrates historical weather data (NOAA) with agricultural yield data (USDA) to analyze how climate variability affects corn and soybean production in Illinois. Agriculture is a cornerstone of Illinois's economy, and understanding the relationship between climate patterns and crop productivity is crucial for future planning and adaptation strategies.
-
-### Research Questions
-
-1. **How does year-to-year temperature volatility impact corn and soybean yields in Illinois counties?**
-2. **Are there identifiable thresholds in temperature or precipitation beyond which yields significantly decline?**
-3. **Can long-term climate patterns (e.g., increasing average summer temperatures) be statistically linked to changes in productivity trends?**
-
----
-
-## Project Structure
-
-```
-climate-agriculture-il/
-│
-├── data/
-│   ├── raw/                  # Original data (hosted on Box)
-│   │   ├── noaa_full.csv
-│   │   └── usda_yields.csv
-│   ├── processed/            # Cleaned & integrated data (hosted on Box)
-│   │   ├── noaa_clean.csv
-│   │   ├── usda_clean.csv
-│   │   └── integrated.csv
-│   ├── metadata/             # Data dictionaries
-│   └── checksums.json        # Data integrity checksums
-│
-├── scripts/
-│   ├── get_noaa_data.py      # NOAA data acquisition
-│   ├── get_usda_data.py      # USDA data acquisition
-│   ├── clean_noaa.py         # NOAA data cleaning
-│   ├── clean_usda.py         # USDA data cleaning
-│   ├── integrate_datasets.py # Data integration
-│   ├── profile_data.py       # Data quality profiling
-│   ├── analyze_data.py       # Statistical analysis
-│   ├── visualize_results.py  # Visualization generation
-│   ├── verify_data.py        # Checksum verification
-│   └── README.md             # Scripts documentation
-│
-├── workflow/
-│   └── run_all.sh            # Complete automated workflow
-│
-├── docs/
-│   ├── ProjectPlan.md        # Original proposal
-│   ├── QUICKSTART.md         # Quick start guide
-│   └── API_SETUP_GUIDE.md    # API configuration guide
-│
-├── results/                  # Analysis outputs and visualizations
-│   ├── analysis_results.json
-│   ├── data_profile.json
-│   └── *.png (visualizations)
-│
-├── Snakefile                 # Snakemake workflow
-├── config.yaml               # Workflow configuration
-├── requirements.txt          # Python dependencies
-├── LICENSE                   # Code license (MIT)
-├── DATA_LICENSE              # Data license (Public Domain/CC0)
-├── CITATION.cff              # Citation metadata
-├── REPRODUCIBILITY.md        # Complete reproduction guide
-└── README.md                 # This file
-```
+Summary
+Throughout this project we were able to examine the relationship between the climate variability and the agricultural productivity in Illinois, with our focus being on how temperature changes could affect corn and soybean yields at the county level. Because farming is a big piece of our economy from Illinois, this project stands to make a big understanding of our economy as a whole. Corn and soybeans are highly sensitive to environmental conditions including temperature fluctuations, precipitation, and weather events. As climate change continues to change our weather patterns, we need to understand these relationships to become increasingly critical for farmers, policymakers, and agricultural planners. 
+The project employs a detailed data science approach, integrating 2 major public datasets which include daily weather observations from multiple sources which include the NOAA climate data online system and the annual crop yield data which helped me. We also worked with the department of agriculture of data and by working with all of these datasets through our integration process, we were able to make a process where we examined climate crop relations across multiple years and counties throughout Illinois. I believe we follow a good lifecycle process here where we follow the rules of taking raw data acquisition through final analysis and visualization. We were able to develop a fully reproducible pipeline which helped automate data acquisition with NOAA and USDA APIs, the data cleaning process which we had were to take care of missing values and standardize formats with integration of datasets on county years, and different statistical analysis. The workflow was implemented by our effort with using Snakemake pipeline and a bash script which helped us give an option to reproduce our findings given the same data sources. 
+The motivation behind this process was due to numerous people saying there were growing concerns about the climate's impact on our food as a planet. Illinois is also a state where agriculture plays a big role and our output of it has a nationwide impact for overall food supply chains and prices. These weather patterns are becoming harder to predict due to climate change and we need a better system to predict these crops. 
+The temperature volatility which is basically how we look at the change in temperature throughout the years is in my opinion the biggest factor when it comes to climate impact.  Even the day-to-day change in the temperature can impact the growth of crops significantly. Certain plans need an optimal temperature to have good growth and these temperature swings can cause a lot of problems with stress and pollination which can lead to lower yield. The use of data science on this project allows us to demonstrate the data life cycle in one of the biggest economies in Illinois. The project required us basically to integrate data from multiple sources with different schemas and handle large data sets while also cleaning it and making sure they're good quality. These skills are directly applicable to real-world data science problems across many domains which make this project valuable. Results from studies like this can inform crop insurance programs, guide agricultural extension services in providing advice to farmers, support climate adaptation planning at state and county levels, and contribute to broader discussions about agricultural resilience in the face of climate change.
 
----
+Due to laptop problems, rohit and dev worked together on screen but sat with each other and worked on production of code, output, and paper
 
-## Data Sources
+There are numerous research questions which we can formulate from this project. 
+1)How does year-to-year temperature volatility impact corn and soybean yields in Illinois counties?
+2) Are there identifiable thresholds in temperature or precipitation beyond which yields significantly decline?
+3)Can long-term climate patterns, such as increasing average summer temperatures, be statistically linked to changes in productivity trends?
+Findings of these research include: 
 
-### 1. NOAA Climate Data Online (CDO)
+Data profile
+When it comes to data profile we utilize two main data sets to help us get the information needed from the US government.  These data sets are very public and they fall under a public domain which means they represent work products of federal agencies and the integration of these data sets allows us to provide a very good view of the climate and agricultural relationship in Illinois which allows us to combine the high frequency environmental measures with our agricultural productive units. The first Data set we have is the NOAA  climate data online source. This particular data source is maintained by a national center for the environment which is a federal agency and this helps give us our weather and climate data.  the data is primarily accessed through a program through the NOAA website and API version 2.  this API requires a free API token which you can get through the website and the data represents different observations from climate sources and other data sets and it is filtered with different weather stationed within the Illinois border.  When it comes to the data set characteristics this data contains numerous weather observations which contain data for the past 8 to 10 years and it is collected throughout 100 to 200 active weather stations throughout Illinois. The variables in this data set Include a maximum temperature and a minimum temperature and even a average daily temperature with daily participation.  temperature measurements are recorded in Celsius while the precipitation is in millimeters due to World metrics.  the raw data set has millions of individual observations before any aggregation. 
+Data quality
+When it comes to the data quality I would say it is very high because the measurements are followed through a standardized protocol and the quality protocol insured before publication.  But that doesn't mean there are no limitations and some of them include the weather stations which have different coverages across the county and a lot of these counties have less stations which could hurt our representatives. I would also like to add that they were missing values due to numerous malfunctions and even data transmission issues but this did not affect many observations and there were other ethical and legal considerations which played a much bigger role. 
+Ethical
+Because the US government was involved with the work of this data set it is a public domain and there's no copyright restrictions at all and the data can be used and modified and redistributed without any permission. the data usage is compliant with any conditions for data access and we have our API services and keys which were needed.  there were other small rules that we had to follow and we did throughout the project and these guidelines were very lenient. 
+When it comes to our other data set which is the national agriculture statistics service the US government also played a role in this data set which helped with our crop yield data.  the data set was used through an API key which was free to obtain through the USDA website. The data represents any agriculture statistics through the surveys and programs that US government implements. 
+Characteristics 
+This particular data set has any county level field data for the yield for corn and soybeans in Illinois which was covered around the 10 year time. of our first data set. The data set had numerous Illinois counties but not every County was able to report data for the crops in every single year and we found out that the corn yields range from 100 to 300 per acre.  When it came to the soybeans it was only 40 to 80 bushes per acre.  The data set also gave us other information like name States and different codes for the FIPS. 
+Quality 
+When it comes to this data set I would say this data is very good because it comes from the US government the quality has to be assured and follow basic official statistics when it comes to the market.  That doesn't mean there were no limitations and some of these limitations included where counties just didn't have enough data and Reporting is limited in some operations and some other counties where there were not any farms. I would also like to add that the yield data from these counties has some rules when it comes to examination of seasonal effects during the growth stage. 
 
-- **Source:** [National Centers for Environmental Information](https://www.ncdc.noaa.gov/cdo-web/)
-- **Description:** Daily weather observations including temperature (TMIN, TMAX, TAVG) and precipitation (PRCP)
-- **Coverage:** Illinois weather stations, 1990-present
-- **Format:** CSV via API
-- **License:** Public domain
+Data quality
+When it comes to our data quality I would say we did a very good job with the automation data profiling throughout the pipeline to help with the completeness, the consistency and the overall structure of this.  helped assess different missing values and any duplicate records and this allowed us to keep a consistent column and even make an impact on the outliers based on different ranges of interquartiles and the structure of the quality of data based on the duplicates and missingness and structural issues. Our first data set with NOAA had numerous weather observations over the span of 30 years and that just came from Illinois.  the initial profile helped us look at substantial data quality which was hard to deal with at first and we had numerous problems at the beginning but the overall quality score was very solid. Missing data was very big of a problem with I would say close to 50% of overall missingness and there were severe gaps in temperatures. We had some problems which we had to deal with throughout the problem.  Most of the outliers came from the fact they were extreme weather events and different statement coverages had different ways of reporting and consistency was a problem because of that.  Because of these issues we had to spend numerous times cleaning the data and making different aggregations and because the identifiers for our County were not available the weather data had to be aggregated to the state level.  After doing all the aggregation it allowed us to make sure we had a temperature measurement for every observation in the clean data set. I would like to add that there were records where there were no temperature data and we just had to remove that to move forward with the project and some other issues also included the missingness and temperature variables for some years some outliers which included annual  precipitation and even some weather years where we lost data due to the state level aggregation. 
+ The USDA NASS data set had thousands of county level yield observations for corn and soybeans in Illinois. However there were some structural problems with the data because we had a lot of columns with missing data again and overall some data was thought to be inflated.  After working through the data we were able to reduce the missingness by a handful but we also had critical fields of data which we worked through and the coverage for the counties increased a lot. 
+ We also reduced some of the columns to a handful and this helped standardize some naming conventions which allowed us to produce a much higher quality of data and more consistency among different codes and duplicates. 
+The integrated data sets which combined our clean data sets with NOAA and USDA data on the year variable which produced thousands of County observations over the span of a few years and this data was the highest quality we could secure.  There was one year which had a lack of weather data but the final data set had over 10 variables with an outcome of yield and over five climate predictors and we were able to get rid of all the missing values.  Throughout the entirety of this data pipeline we had numerous quality questions but we came to fix it and because of this the integrity and reliability went up.  The automated profiling helped us document any data characteristics at each stage and the checksums and hashtags that we implemented help maintain any data set integrity and any validation with key alignment and retention. When it comes to improving the future analytics of this type of data I would think having some additional weather stations which focus more on climate metrics during the growing season could help with the data sources.  overall we started with substantial amount of problems when it comes to missing data and aggregation but because of our aggregation process we are able to produce high quality data and allow us to do a statistical analysis of it which allowed overall quality to improve and help the variables achieve a meaningful usefulness and provide consistent and clean data for us to improve on the project. 
+. 
+Findings:
+When it comes to this project we were trying to examine the relationship between temperature change and agricultural productivity just in Illinois and more specifically between the corn and soybean yield for the past 5 to 7 years.  We were able to use around 1,100 County year observations which use our data sets of NOAA and the USDA crop yield data and we found that the temperature volatility has statistical significance with a very poor relationship with yields for both the crops. Our data was able to tell us that corn yields decline by almost 7 bushes per acre for each degree Celsius, a temperature standard deviation change, while the soybeans also declined by about two bushels per acre within the same change in temperature. The temperature change which was measured by the daily average temperatures clearly show a negative effect when you look at the mean temperature and annual  precipitation,  if you look at the corn the regression results show a coefficient of around negative 7 and a p-value much below the statistical significance one. Looking at the data it seems that corn has a much more impact on itself with weather change than soybean and this is more of a science question as to the chemical composition of corn. Overall the data showed a very good linear relationship when it comes to this analysis. I would also like to show that the temperature change in this particular data set was narrow and if there was more data and wider numeric numbers for temperature we could get more information about the impact. When it comes to Future studies with this type of work I think we could find more nonlinear answers and thresholds. There are numerous other factors when it comes to this information and one of them is technological improvements in the way we farm so even if the weather continues to change the way we improve our technology and the way we have agricultural standards and other factors could continue to help us with our yields.  We also need to keep a lookout for how temperature changes throughout the year and if they get more or less volatile. There are some limitations with these findings; we only look at it over a span of a few years and this type of work could exclude any natural climate variability.  We also don't take into account any soil or irrigation or how different Farms plant their seeds and their watering sores and even pesticides which they leave out and all of those factors play a big role when it comes to variance and crop growth. 
 
-**Citation:**
-> NOAA National Centers for Environmental Information. Climate Data Online. Accessed November 2024. https://www.ncdc.noaa.gov/cdo-web/
+Overall when it comes to this analysis it is very clear that the temperature volatility has an impact on our agriculture here in Illinois and there are specific crop things that we need to do to understand this impact. The first thing is that corn is much more sensitive than soybean and even though it showed its linear relationship with climate change we can't use this as a only factor as there are other factors which play a role in crop growth and historical returns. 
 
-### 2. USDA National Agricultural Statistics Service (NASS)
+Futurework
+When it came to the development of this project we had a lot of analytical problems which helped us understand our results and even the way we should continue to work on this type of project with agriculture and data.  the biggest thing that I learned was the way we looked at the data's API and how there were no County identifiers for the weather station and this made it very hard to align the climate observations with the county level yield data.  another challenge which I encountered was the integration of Staley weather observations with annual copy elements and this required me to choose some aggregation strategies with my partner and the initial plan which we had when it came to looking at the growing season climate magazine the most sensitive to temperature and precipitation change,  however because of the gas and the data this is very hard to do and the construction of this window years worth of aggregation which also failed to capture any periods of meaningful data.  Because of this we learned that next time we do this we need to make sure we go through an entire growing season when it comes to climate data and much in advance because the annual averages that drive these variability will change.  The biggest problem we have was the missing data and this increases the project work by numerous amounts.  In addition to missing data there was inconsistent reporting throughout the different work with this being more of a technological problem in Illinois than data itself. As a group we didn't want to get rid of any incomplete data so we had to develop specific variable handling strategies like looking at the average temperature just by using the minimum and maximum values but we also want to make sure that we had automated data profiling systems implemented in the future which would save us much more time.  the original data from NOAA was all good things but this took way too long to work it so we had to cut it down to two closings and then even then some of the downloads of data were partial. When it comes to learning with lessons, these have a high impact on a project and it comes with acquiring the correct climate data which is the most important thing that we need to change for the future of this accuracy of the project. 
+In conclusion, this project provided extensive experience with real-world data integration challenges, climate and agricultural modeling, reproducible workflows, and documentation practices. The most important lessons center on verifying data compatibility before analysis, 
 
-- **Source:** [NASS Quick Stats](https://quickstats.nass.usda.gov/)
-- **Description:** County-level annual corn and soybean yields (bushels per acre)
-- **Coverage:** Illinois counties, 1990-present
-- **Format:** CSV via Quick Stats API
-- **License:** Public domain
 
-**Citation:**
-> USDA National Agricultural Statistics Service. Quick Stats Database. Accessed November 2024. https://quickstats.nass.usda.gov/
+designing crop-specific models, and building automated pipelines early. These improvements  would help us improve the relevance of climate yield analyses in future research.
 
----
 
-## Getting Started
+Reproducing
+I think this project can be fully reproduced on a Mac or even a Windows as long as you have a certain level of python. The python used throughout this project was 3.11 and I think you need a certain level of free storage which also would mean you need  pandas and numpy and requests and matplotlib and Seaborn and any statistical models which we also put. You need to start by cloning or git repository and then entering the directory which would allow you to work in an environment.  you'll need two different API keys to configure which include the noaa and the USDA one. You also need to make sure that you have the proper CSV files and that they exist but you could also download the weather data yourself and the data ranges could be adjusted.  when it comes to the analysis you could just execute workflow/run_all.sh,  and this would allow you to run all the stages of cleaning , integration profiling,  regression analysis and even visualization.  or if you prefer you could run the snake make workflow which is used with snake -corws 1.  you could also run every script manually and clean NOAA and USDA data and integrate the data sets yourself.  If you did the Run correctly you should process the data sets which include the CSV files,  analyze the results in a Json format,  and even have checksums and visualizations.  There could be some issues with this and that include that the API rate limits any permission errors, but those should not exist because the data sets are all public. The biggest thing you need to make sure is that you have the correct version of python and you have the memory needed for this.  After all this is done the reproduction should be checked with the outputs that we generated without any errors. 
 
-### Prerequisites
+References 
 
-- Python 3.8 or higher
-- pip (Python package manager)
-- Git
 
-### Installation
+National Centers for Environmental Information. (2024). *Climate data online*. National Oceanic and Atmospheric Administration. https://www.ncdc.noaa.gov/cdo-web/
 
-1. **Clone the repository:**
+U.S. Department of Agriculture, National Agricultural Statistics Service. (2024). *Quick stats database*. https://quickstats.nass.usda.gov/
 
-```bash
-git clone https://github.com/yourusername/climate-agriculture-il.git
-cd climate-agriculture-il
-```
+Software tools which helped us
+Köster, J., & Rahmann, S. (2012). Snakemake—A scalable bioinformatics workflow engine. *Bioinformatics*, 28(19), 2520–2522. https://doi.org/10.1093/bioinformatics/bts480
 
-2. **Create a virtual environment (recommended):**
+McKinney, W. (2010). Data structures for statistical computing in Python. In S. van der Walt & J. Millman (Eds.), *Proceedings of the 9th Python in Science Conference* (pp. 56–61). https://doi.org/10.25080/Majora-92bf1922-00a
 
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. *Journal of Machine Learning Research*, 12, 2825–2830.
 
-3. **Install dependencies:**
+Python Software Foundation. (2024). *Python programming language* (Version 3.10) [Computer software]. https://www.python.org/
 
-```bash
-pip install -r requirements.txt
-```
+Seabold, S., & Perktold, J. (2010). Statsmodels: Econometric and statistical modeling with Python. In S. van der Walt & J. Millman (Eds.), *Proceedings of the 9th Python in Science Conference* (pp. 92–96). https://doi.org/10.25080/Majora-92bf1922-011
+Articles which we learned from 
+Lobell, D. B., & Field, C. B. (2007). Global scale climate–crop yield relationships and the impacts of recent warming. *Environmental Research Letters*, 2(1), 014002. https://doi.org/10.1088/1748-9326/2/1/014002
 
-### Data Acquisition
+Schlenker, W., & Roberts, M. J. (2009). Nonlinear temperature effects indicate severe damages to U.S. crop yields under climate change. *Proceedings of the National Academy of Sciences*, 106(37), 15594–15598. https://doi.org/10.1073/pnas.0906865106
 
-Before running the cleaning scripts, you need the raw data:
 
-#### Using the APIs
-
-1. **NOAA API:**
-   - Request a token: https://www.ncdc.noaa.gov/cdo-web/token
-   - Use API to download Illinois weather data
-   - Save as `data/raw/noaa_full.csv`
-
-2. **USDA NASS API:**
-   - Request an API key: https://quickstats.nass.usda.gov/api
-   - Query for Illinois corn and soybean yields
-   - Save as `data/raw/usda_yields.csv`
-
-#### Manual download
-
-1. Visit the NOAA CDO web interface and download Illinois data
-2. Visit the USDA Quick Stats interface and download crop yield data
-3. Place files in `data/raw/` directory
-
----
-
-## Running the Pipeline
-
-### Automated workflow
-
-Run the data cleaning pipeline with one command:
-
-```bash
-cd workflow
-./run_all.sh
-```
-
-This script will:
-1. Check for required raw data files
-2. Clean NOAA weather data
-3. Clean USDA crop yield data
-4. Generate summary statistics
-
-### Running scripts individually
-
-You can also run them one at a time:
-
-```bash
-# Download data (if needed)
-python scripts/get_noaa_data.py
-python scripts/get_usda_data.py
-
-# Clean NOAA data
-python scripts/clean_noaa.py
-
-# Clean USDA data
-python scripts/clean_usda.py
-```
-
-See [`scripts/README.md`](scripts/README.md) for detailed script documentation.
-
----
-
-## Data Processing Steps
-
-### 1. NOAA Weather Data Cleaning (`clean_noaa.py`)
-
-**Input:** Daily weather observations  
-**Output:** County-year aggregated climate metrics
-
-**Processing:**
-- Convert temperatures from tenths of °C to actual °C
-- Handle missing values
-- Aggregate daily data to annual county-level:
-  - Mean annual temperature
-  - **Temperature volatility** (standard deviation)
-  - Annual precipitation totals
-  - Max/min temperature statistics
-
-**Key Metric:** Temperature volatility (daily temperature standard deviation) serves as the primary climate variability indicator.
-
-### 2. USDA Crop Yield Cleaning (`clean_usda.py`)
-
-**Input:** County-level annual crop yields  
-**Output:** Standardized yield data for corn and soybeans
-
-**Processing:**
-- Filter for Illinois counties
-- Filter for corn and soybean crops
-- Remove suppressed data entries
-- Standardize FIPS codes
-- Remove unrealistic outliers
-
-## Project Complete
-
-This project has completed all phases of analysis:
-
-**Data Pipeline (Weeks 1-5):**
-- Automated data acquisition from NOAA and USDA APIs
-- Comprehensive data cleaning and standardization
-- Quality assessment and profiling
-- Data integration and volatility metric calculation
-
-**Analysis (Weeks 6-8):**
-- Statistical regression analysis
-- Temporal trend analysis
-- Threshold effect testing
-- Correlation analysis
-
-**Deliverables (Weeks 9-10):**
-- 6 publication-quality visualizations
-- Complete Snakemake workflow
-- Automated reproducibility pipeline
-- Comprehensive documentation
-- Data integrity verification (SHA-256 checksums)
-
-**Key Outputs:**
-- `integrated.csv` - Final analysis dataset (~10,000+ observations)
-- `analysis_results.json` - Complete statistical results
-- `data_profile.json` - Data quality assessment
-- Multiple visualizations showing yield-volatility relationships
-
----
-
-## Expected Analysis (Weeks 7-8)
-
-### Statistical Modeling
-
-**Regression Analysis:**
-```
-yield ~ mean_temp + temp_sd + annual_prcp + county_fixed_effects
-```
-
-**Expected findings:**
-- Temperature volatility negatively impacts yields
-- Optimal temperature ranges for corn vs. soybeans
-- Precipitation thresholds for yield declines
-
-### Visualizations
-
-1. **Scatter plots:** Yield vs. temperature volatility
-2. **Heat maps:** Geographic patterns of yield changes
-3. **Time series:** Long-term trends in climate and productivity
-4. **Box plots:** Yield distributions by temperature quartiles
-
----
-
-## Project Timeline
-
-| Week | Task | Responsible | Status |
-|------|------|-------------|--------|
-| 1 | Project plan, GitHub setup, test data access | Both | Complete |
-| 2-3 | Data acquisition (NOAA & USDA) | Dev (NOAA), Rohit (USDA) | Complete |
-| 4-5 | Data cleaning & standardization | Rohit | Complete |
-| 6 | Data integration & volatility metrics | Both | Complete |
-| 7-8 | Regression analysis & visualizations | Dev | Complete |
-| 9-10 | Workflow automation, documentation, reproducibility | Both | Complete |
-
----
-
-## Reproducibility
-
-This project follows best practices for reproducible research:
-
-- **Version Control:** All code tracked in Git
-- **Documentation:** Comprehensive README and inline comments
-- **Dependencies:** Explicit version requirements in `requirements.txt`
-- **Automated Workflow:** One-command pipeline execution via `run_all.sh`
-- **Logging:** Detailed progress tracking in all scripts
-- **Modular Design:** Separate scripts for each processing stage
-
-### Reproducing This Analysis
-
-**Quick Start:**
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/climate-agriculture-il.git
-   cd climate-agriculture-il
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Download data from Box:
-   - Visit the Box link above
-   - Download `data.zip`
-   - Extract to project root
-   
-4. Run the complete pipeline:
-   ```bash
-   ./workflow/run_all.sh
-   ```
-
-5. Or use Snakemake:
-   ```bash
-   snakemake --cores 4
-   ```
-
-**Detailed Instructions:** See `REPRODUCIBILITY.md` for complete step-by-step instructions.
-
-**Verify Results:** Compare your outputs with our checksums:
-```bash
-python scripts/verify_data.py verify
-```
-
----
-
-## Team Contributions
-
-### Dev Rishi Udata
-- NOAA data acquisition and API integration
-- Database setup and storage organization
-- Workflow automation (`run_all.sh`)
-- Documentation and GitHub management
-
-### Rohit Shah
-- USDA data acquisition
-- Data cleaning and quality assessment
-- Statistical modeling and regression analysis
-- Visualization development
-
-*Contributions are evident in Git commit history.*
-
----
-
-## Ethical Considerations
-
-### Data Ethics
-
-- **Public Data:** All datasets are publicly available and in the public domain
-- **Proper Attribution:** NOAA and USDA datasets are properly cited
-- **No PII:** No personally identifiable information is used
-- **Terms of Use:** Compliance with NOAA and USDA data usage policies
-
-### Limitations
-
-- **Causation vs. Correlation:** Results show associations, not definitive causation
-- **Confounding Factors:** Yields are influenced by many non-climatic factors (soil, technology, management)
-- **Data Completeness:** Weather station coverage varies by county
-- **Temporal Alignment:** Daily weather aggregated to annual may lose important seasonal patterns
-
----
-
-## References
-
-1. NOAA National Centers for Environmental Information. (2024). *Climate Data Online*. https://www.ncdc.noaa.gov/cdo-web/
-2. USDA National Agricultural Statistics Service. (2024). *Quick Stats Database*. https://quickstats.nass.usda.gov/
-3. Schlenker, W., & Roberts, M. J. (2009). Nonlinear temperature effects indicate severe damages to U.S. crop yields under climate change. *Proceedings of the National Academy of Sciences*, 106(37), 15594-15598.
-4. Lobell, D. B., & Field, C. B. (2007). Global scale climate–crop yield relationships and the impacts of recent warming. *Environmental Research Letters*, 2(1), 014002.
-
----
-
-## Contact
-
-**Project Maintainers:**
-- Dev Rishi Udata - [dudata2@illinois.edu](mailto:dudata2@illinois.edu)
-- Rohit Shah - [rohitps2@illinois.edu](mailto:rohitps2@illinois.edu)
-
-**Course:** IS477 - Data Lifecycle Management  
-**Instructor:** [Instructor Name]  
-**Semester:** Fall 2024
-
----
-
-## License
-
-This project is in the **public domain**. The source data from NOAA and USDA are public domain datasets provided by U.S. government agencies. All code and documentation produced for this project are freely available for use, modification, and distribution.
-
----
-
-## Acknowledgments
-
-- NOAA National Centers for Environmental Information for providing comprehensive climate data
-- USDA National Agricultural Statistics Service for crop yield data
-- IS477 teaching staff for guidance and feedback
-- University of Illinois at Urbana-Champaign
-
----
-
-*Last Updated: November 2024 (Weeks 4-5 Development Phase)*
-
+https://uofi.box.com/s/9syvaymgj7g33xuqvlb39ydhghtbpyq8- you can download these images of our final output which show the data
